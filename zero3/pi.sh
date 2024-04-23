@@ -333,8 +333,9 @@ install_cpolar() {
         # 启动服务
         sudo systemctl start cpolar
         # 查看状态
-        sudo systemctl status cpolar
-        green 浏览器访问:http://${host_ip}:9200 创建隧道
+        sudo systemctl status cpolar | tee /dev/tty
+        green 浏览器访问:http://${host_ip}:9200/#/tunnels/list  创建隧道
+        
 
     else
         red "错误：cpolar 命令未找到，请先安装 cpolar。"
