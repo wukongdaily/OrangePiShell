@@ -319,6 +319,8 @@ update_aliyunpan_folder_id(){
 
 # 安装内网穿透
 install_cpolar() {
+    local host_ip
+    host_ip=$(hostname -I | awk '{print $1}')
     curl -L https://www.cpolar.com/static/downloads/install-release-cpolar.sh | sudo bash
     if command -v cpolar &>/dev/null; then
         # 提示用户输入 token
@@ -326,6 +328,14 @@ install_cpolar() {
         read -p "请输入您的 AuthToken: " token
         # 执行 cpolar 命令并传入 token
         cpolar authtoken "$token"
+        # 向系统添加服务
+        sudo systemctl enable cpolar
+        # 启动服务
+        sudo systemctl start cpolar
+        # 查看状态
+        sudo systemctl status cpolar
+        green 浏览器访问:http://${host_ip}:9200 创建隧道
+
     else
         red "错误：cpolar 命令未找到，请先安装 cpolar。"
     fi
@@ -362,6 +372,10 @@ install_casaos(){
 # 更新自己
 update_scripts(){
     ehco "正在更新"
+    wget -O pi.sh ${proxy}https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/zero3/pi.sh && chmod +x pi.sh
+	echo "脚本已更新并保存在当前目录 pi.sh,现在将执行新脚本。"
+	./pi.sh ${proxy}
+	exit 0
 }
 
 show_menu() {
