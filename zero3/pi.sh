@@ -329,10 +329,13 @@ install_cpolar() {
         # 执行 cpolar 命令并传入 token
         cpolar authtoken "$token"
         # 向系统添加服务
+        green "正在向系统添加cpolar服务"
         sudo systemctl enable cpolar
         # 启动服务
+        green "正在启动cpolar服务"
         sudo systemctl start cpolar
         # 查看状态
+        green "cpolar服务状态如下"
         sudo systemctl status cpolar | tee /dev/tty
         green 浏览器访问:http://${host_ip}:9200/#/tunnels/list  创建隧道
         
