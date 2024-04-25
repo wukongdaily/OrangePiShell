@@ -23,3 +23,7 @@ wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukon
 - docker 离线包：https://wwl.lanzouq.com/s/zero3  密码:3c60
 - 免费内网穿透工具:https://i.cpolar.com/m/5Ij6
 - docker全部离线包：https://drive.google.com/drive/folders/1lN14zlHeLu0zckHNftpW8kPlqGZHolL8?usp=sharing
+- zero3开发版 Ubuntu Server(需要解压后再写入TF卡):https://pan.baidu.com/s/1EKlmccM6STFDb_01rv-qQQ?pwd=2gc7
+- TF卡写盘工具：https://etcher.balena.io/
+- 教学视频：https://www.bilibili.com/video/BV1ND421T7nB/
+- 教学视频2:https://youtu.be/Ym4d7uCo9eg
