@@ -19,3 +19,7 @@ wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukon
 <img src="https://github.com/wukongdaily/OrangePiShell/assets/143675923/56898b74-ea47-44aa-8de3-e14e12873a25" width="40%" />
 
 
+### 网盘
+- docker 离线包：https://wwl.lanzouq.com/s/zero3  密码:3c60
+- 免费内网穿透工具:https://i.cpolar.com/m/5Ij6
+- docker全部离线包：https://drive.google.com/drive/folders/1lN14zlHeLu0zckHNftpW8kPlqGZHolL8?usp=sharing
