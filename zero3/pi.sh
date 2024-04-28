@@ -268,6 +268,7 @@ install_xiaoya_alist() {
     用户: guest 
     密码: guest_Api789
     '
+        green 请您耐心等待xiaoya数据库更新完毕,5分钟后再访问
         green 浏览器访问:http://${host_ip}:5678
         green "已设置实时清理，只要产生了播放缓存一分钟内立即清理转存文件夹里的文件."
     fi
