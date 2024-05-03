@@ -1,7 +1,5 @@
 <img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black"> 
 
-# 使用方法 
-
 ### 通过ssh 连接到zero3,举例
 `ssh orangepi@192.168.66.106`
 - 默认用户名:`orangepi`
@@ -13,12 +11,25 @@
 
 `sudo orangepi-config`
 
-### 一键命令如下
-
+### 一键命令如下(Ubuntu/Debian)
+> 系统带sudo
 ```bash
 wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/zero3/pi.sh && chmod +x pi.sh
 ./pi.sh proxy
 ```
+### Debian的准备
+> debian系统最好先切到root身份再运行上述脚本
+
+
+```bash
+su -
+```
+```bash
+wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/zero3/pi.sh && chmod +x pi.sh
+./pi.sh proxy
+
+```
+
 
 <img src="https://github.com/wukongdaily/OrangePiShell/assets/143675923/67baea9e-9222-4409-8aae-b6e9242c721d" width="40%" />
 
@@ -35,3 +46,10 @@ wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukon
 - TF卡写盘工具：https://etcher.balena.io/
 - 教学视频：https://www.bilibili.com/video/BV1ND421T7nB/
 - 教学视频2:https://youtu.be/Ym4d7uCo9eg
+# 兼容的系统
+| 设备 \| 架构   | 是否支持 |
+| :----- | :--: | 
+| x86-64 \| amd64   |  ✅  |
+| arm64 \| arm64v8 |  ✅  | 
+| armhf \| armv7 |  ✅  | 
+
