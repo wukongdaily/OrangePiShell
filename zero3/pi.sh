@@ -28,7 +28,7 @@ declare -A commands
 menu_options=(
     "更新系统软件包"
     "安装并启动文件管理器FileBrowser"
-    "启动文件管理器FileBrowser"
+    "设置文件管理器开机自启动"
     "安装1panel面板管理工具"
     "查看1panel用户信息"
     "安装小雅和小雅keeper"
@@ -44,7 +44,7 @@ menu_options=(
 commands=(
     ["更新系统软件包"]="update_system_packages"
     ["安装并启动文件管理器FileBrowser"]="install_filemanager"
-    ["启动文件管理器FileBrowser"]="start_filemanager"
+    ["设置文件管理器开机自启动"]="start_filemanager"
     ["安装1panel面板管理工具"]="install_1panel_on_linux"
     ["查看1panel用户信息"]="read_user_info"
     ["安装小雅和小雅keeper"]="install_xiaoya_alist"
@@ -69,117 +69,122 @@ update_system_packages() {
 
 # 安装文件管理器
 # 源自 https://filebrowser.org/installation
-install_filemanager()
-{
-	trap 'echo -e "Aborted, error $? in command: $BASH_COMMAND"; trap ERR; return 1' ERR
-	filemanager_os="unsupported"
-	filemanager_arch="unknown"
-	install_path="/usr/local/bin"
+install_filemanager() {
+    trap 'echo -e "Aborted, error $? in command: $BASH_COMMAND"; trap ERR; return 1' ERR
+    filemanager_os="unsupported"
+    filemanager_arch="unknown"
+    install_path="/usr/local/bin"
 
-	# Termux on Android has $PREFIX set which already ends with /usr
-	if [[ -n "$ANDROID_ROOT" && -n "$PREFIX" ]]; then
-		install_path="$PREFIX/bin"
-	fi
+    # Termux on Android has $PREFIX set which already ends with /usr
+    if [[ -n "$ANDROID_ROOT" && -n "$PREFIX" ]]; then
+        install_path="$PREFIX/bin"
+    fi
 
-	# Fall back to /usr/bin if necessary
-	if [[ ! -d $install_path ]]; then
-		install_path="/usr/bin"
-	fi
+    # Fall back to /usr/bin if necessary
+    if [[ ! -d $install_path ]]; then
+        install_path="/usr/bin"
+    fi
 
-	# Not every platform has or needs sudo (https://termux.com/linux.html)
-	((EUID)) && [[ -z "$ANDROID_ROOT" ]] && sudo_cmd="sudo"
+    # Not every platform has or needs sudo (https://termux.com/linux.html)
+    ((EUID)) && [[ -z "$ANDROID_ROOT" ]] && sudo_cmd="sudo"
 
-	#########################
-	# Which OS and version? #
-	#########################
+    #########################
+    # Which OS and version? #
+    #########################
 
-	filemanager_bin="filebrowser"
-	filemanager_dl_ext=".tar.gz"
+    filemanager_bin="filebrowser"
+    filemanager_dl_ext=".tar.gz"
 
-	# NOTE: `uname -m` is more accurate and universal than `arch`
-	# See https://en.wikipedia.org/wiki/Uname
-	unamem="$(uname -m)"
-	case $unamem in
-	*aarch64*)
-		filemanager_arch="arm64";;
-	*64*)
-		filemanager_arch="amd64";;
-	*86*)
-		filemanager_arch="386";;
-	*armv5*)
-		filemanager_arch="armv5";;
-	*armv6*)
-		filemanager_arch="armv6";;
-	*armv7*)
-		filemanager_arch="armv7";;
-	*)
-		green "Aborted, unsupported or unknown architecture: $unamem"
-		return 2
-		;;
-	esac
+    # NOTE: `uname -m` is more accurate and universal than `arch`
+    # See https://en.wikipedia.org/wiki/Uname
+    unamem="$(uname -m)"
+    case $unamem in
+    *aarch64*)
+        filemanager_arch="arm64"
+        ;;
+    *64*)
+        filemanager_arch="amd64"
+        ;;
+    *86*)
+        filemanager_arch="386"
+        ;;
+    *armv5*)
+        filemanager_arch="armv5"
+        ;;
+    *armv6*)
+        filemanager_arch="armv6"
+        ;;
+    *armv7*)
+        filemanager_arch="armv7"
+        ;;
+    *)
+        green "Aborted, unsupported or unknown architecture: $unamem"
+        return 2
+        ;;
+    esac
 
-	unameu="$(tr '[:lower:]' '[:upper:]' <<<$(uname))"
-	if [[ $unameu == *DARWIN* ]]; then
-		filemanager_os="darwin"
-	elif [[ $unameu == *LINUX* ]]; then
-		filemanager_os="linux"
-	elif [[ $unameu == *FREEBSD* ]]; then
-		filemanager_os="freebsd"
-	elif [[ $unameu == *NETBSD* ]]; then
-		filemanager_os="netbsd"
-	elif [[ $unameu == *OPENBSD* ]]; then
-		filemanager_os="openbsd"
-	elif [[ $unameu == *WIN* || $unameu == MSYS* ]]; then
-		# Should catch cygwin
-		sudo_cmd=""
-		filemanager_os="windows"
-		filemanager_bin="filebrowser.exe"
-		filemanager_dl_ext=".zip"
-	else
-		green "Aborted, unsupported or unknown OS: $uname"
-		return 6
-	fi
-	green "Downloading File Browser for $filemanager_os/$filemanager_arch..."
-	if type -p curl >/dev/null 2>&1; then
-		net_getter="curl -fsSL"
-	elif type -p wget >/dev/null 2>&1; then
-		net_getter="wget -qO-"
-	else
-		green "Aborted, could not find curl or wget"
-		return 7
-	fi
-	filemanager_file="${filemanager_os}-$filemanager_arch-filebrowser$filemanager_dl_ext"
+    unameu="$(tr '[:lower:]' '[:upper:]' <<<$(uname))"
+    if [[ $unameu == *DARWIN* ]]; then
+        filemanager_os="darwin"
+    elif [[ $unameu == *LINUX* ]]; then
+        filemanager_os="linux"
+    elif [[ $unameu == *FREEBSD* ]]; then
+        filemanager_os="freebsd"
+    elif [[ $unameu == *NETBSD* ]]; then
+        filemanager_os="netbsd"
+    elif [[ $unameu == *OPENBSD* ]]; then
+        filemanager_os="openbsd"
+    elif [[ $unameu == *WIN* || $unameu == MSYS* ]]; then
+        # Should catch cygwin
+        sudo_cmd=""
+        filemanager_os="windows"
+        filemanager_bin="filebrowser.exe"
+        filemanager_dl_ext=".zip"
+    else
+        green "Aborted, unsupported or unknown OS: $uname"
+        return 6
+    fi
+    green "Downloading File Browser for $filemanager_os/$filemanager_arch..."
+    if type -p curl >/dev/null 2>&1; then
+        net_getter="curl -fsSL"
+    elif type -p wget >/dev/null 2>&1; then
+        net_getter="wget -qO-"
+    else
+        green "Aborted, could not find curl or wget"
+        return 7
+    fi
+    filemanager_file="${filemanager_os}-$filemanager_arch-filebrowser$filemanager_dl_ext"
     filemanager_url="${proxy}https://github.com/filebrowser/filebrowser/releases/download/v2.28.0/$filemanager_file"
-	echo "$filemanager_url"
+    echo "$filemanager_url"
 
-	# Use $PREFIX for compatibility with Termux on Android
-	rm -rf "$PREFIX/tmp/$filemanager_file"
+    # Use $PREFIX for compatibility with Termux on Android
+    rm -rf "$PREFIX/tmp/$filemanager_file"
 
-	${net_getter} "$filemanager_url" > "$PREFIX/tmp/$filemanager_file"
+    ${net_getter} "$filemanager_url" >"$PREFIX/tmp/$filemanager_file"
 
-	green "Extracting..."
-	case "$filemanager_file" in
-		*.zip)    unzip -o "$PREFIX/tmp/$filemanager_file" "$filemanager_bin" -d "$PREFIX/tmp/" ;;
-		*.tar.gz) tar -xzf "$PREFIX/tmp/$filemanager_file" -C "$PREFIX/tmp/" "$filemanager_bin" ;;
-	esac
-	chmod +x "$PREFIX/tmp/$filemanager_bin"
+    green "Extracting..."
+    case "$filemanager_file" in
+    *.zip) unzip -o "$PREFIX/tmp/$filemanager_file" "$filemanager_bin" -d "$PREFIX/tmp/" ;;
+    *.tar.gz) tar -xzf "$PREFIX/tmp/$filemanager_file" -C "$PREFIX/tmp/" "$filemanager_bin" ;;
+    esac
+    chmod +x "$PREFIX/tmp/$filemanager_bin"
 
-	green "Putting filemanager in $install_path (may require password)"
-	$sudo_cmd mv "$PREFIX/tmp/$filemanager_bin" "$install_path/$filemanager_bin"
-	if setcap_cmd=$(PATH+=$PATH:/sbin type -p setcap); then
-		$sudo_cmd $setcap_cmd cap_net_bind_service=+ep "$install_path/$filemanager_bin"
-	fi
-	$sudo_cmd rm -- "$PREFIX/tmp/$filemanager_file"
+    green "Putting filemanager in $install_path (may require password)"
+    $sudo_cmd mv "$PREFIX/tmp/$filemanager_bin" "$install_path/$filemanager_bin"
+    if setcap_cmd=$(PATH+=$PATH:/sbin type -p setcap); then
+        $sudo_cmd $setcap_cmd cap_net_bind_service=+ep "$install_path/$filemanager_bin"
+    fi
+    $sudo_cmd rm -- "$PREFIX/tmp/$filemanager_file"
 
-	if type -p $filemanager_bin >/dev/null 2>&1; then
-		green "Successfully installed"
-		trap ERR
-		return 0
-	else
-		red "Something went wrong, File Browser is not in your path"
-		trap ERR
-		return 1
-	fi
+    if type -p $filemanager_bin >/dev/null 2>&1; then
+        green "Successfully installed"
+        trap ERR
+        return 0
+    else
+        red "Something went wrong, File Browser is not in your path"
+        trap ERR
+        return 1
+    fi
 }
 
 # 启动文件管理器
@@ -206,6 +211,12 @@ start_filemanager() {
     echo "filebrowser 文件管理器已启动，可以通过 http://${host_ip}:8080 访问"
     echo "登录用户名：admin"
     echo "默认密码：admin（请尽快修改密码）"
+    sudo wget -O /etc/systemd/system/filebrowser.service ${proxy}https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/filebrowser.service
+    sudo chmod +x /etc/systemd/system/filebrowser.service 
+    sudo systemctl daemon-reload # 重新加载systemd配置
+    sudo systemctl start filebrowser.service # 启动服务
+    sudo systemctl enable filebrowser.service # 设置开机启动
+    echo "正在设置文件管理器开机自启动"
 }
 
 # 安装1panel面板
@@ -221,7 +232,7 @@ install_1panel_on_linux() {
 }
 
 # 查看1panel用户信息
-read_user_info(){
+read_user_info() {
     sudo 1pctl user-info
 }
 
@@ -252,7 +263,7 @@ install_xiaoya_alist() {
         阿里云盘OpenToken(335位):   https://alist.nn.ci/tool/aliyundrive/request.html
         阿里云盘转存目录folder id:   https://www.aliyundrive.com/s/rP9gP3h9asE
         '
-        
+
         # 调用修改后的脚本
         remove_docker_rmi "http://docker.xiaoya.pro/update_new.sh"
         # 检查xiaoyaliu/alist 是否运行，如果运行了 则提示下面的信息，否则退出
@@ -288,13 +299,13 @@ remove_docker_rmi() {
     local modified_content=$(echo "$script_content" | sed '/docker rmi/d')
     # 将修改后的内容保存到临时文件
     local modified_script="/tmp/modified_script.sh"
-    echo "$modified_content" > "$modified_script"
+    echo "$modified_content" >"$modified_script"
     # 使用 bash -c 执行修改后的脚本文件
     bash -c "bash $modified_script"
 }
 
 # 更新阿里云盘Token
-update_aliyunpan_token(){
+update_aliyunpan_token() {
     local token_file="/etc/xiaoya/mytoken.txt"
     cyan '
         根据如下网址的提示完成token的填写
@@ -315,15 +326,15 @@ update_aliyunpan_token(){
     fi
 
     # 将 token 写入新的文件
-    sudo echo "$token" > "$token_file"
+    sudo echo "$token" >"$token_file"
     green "成功写入 token 到文件: $token_file"
     cat $token_file
     red "重启小雅docker容器之后 才会生效,请记得在1panel面板手动重启该容器"
 }
 
 # 更新阿里云盘opentoken
-update_aliyunpan_opentoken(){
-  local token_file="/etc/xiaoya/myopentoken.txt"
+update_aliyunpan_opentoken() {
+    local token_file="/etc/xiaoya/myopentoken.txt"
     cyan '
         根据如下网址的提示完成opentoken的填写
         阿里云盘OpenToken(335位): https://alist.nn.ci/tool/aliyundrive/request.html
@@ -342,15 +353,15 @@ update_aliyunpan_opentoken(){
     fi
 
     # 将 token 写入新的文件
-    sudo echo "$token" > "$token_file"
+    sudo echo "$token" >"$token_file"
     green "成功写入 OpenToken 到文件: $token_file"
     cat $token_file
     red "重启小雅docker容器之后 才会生效,请记得在1panel面板手动重启该容器"
 }
 
 # 更新小雅转存文件夹id
-update_aliyunpan_folder_id(){
- local token_file="/etc/xiaoya/temp_transfer_folder_id.txt"
+update_aliyunpan_folder_id() {
+    local token_file="/etc/xiaoya/temp_transfer_folder_id.txt"
     cyan '
         根据如下网址的提示完成小雅转存文件夹ID的填写
         阿里云盘小雅转存文件夹ID(40位): https://www.aliyundrive.com/s/rP9gP3h9asE
@@ -372,7 +383,7 @@ update_aliyunpan_folder_id(){
     fi
 
     # 将 token 写入新的文件
-    sudo echo "$token" > "$token_file"
+    sudo echo "$token" >"$token_file"
     green "成功写入 转存文件夹ID 到文件: $token_file"
     cat $token_file
     red "重启小雅docker容器之后 才会生效,请记得在1panel面板手动重启该容器"
@@ -398,8 +409,7 @@ install_cpolar() {
         # 查看状态
         green "cpolar服务状态如下"
         sudo systemctl status cpolar | tee /dev/tty
-        green 浏览器访问:http://${host_ip}:9200/#/tunnels/list  创建隧道
-        
+        green 浏览器访问:http://${host_ip}:9200/#/tunnels/list 创建隧道
 
     else
         red "错误：cpolar 命令未找到，请先安装 cpolar。"
@@ -430,16 +440,16 @@ install_wukongdaily_box() {
 }
 
 # 安装CasaOS
-install_casaos(){
+install_casaos() {
     curl -fsSL https://get.casaos.io | sudo bash
 }
 
 # 更新自己
-update_scripts(){
+update_scripts() {
     wget -O pi.sh ${proxy}https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/zero3/pi.sh && chmod +x pi.sh
-	echo "脚本已更新并保存在当前目录 pi.sh,现在将执行新脚本。"
-	./pi.sh ${proxy}
-	exit 0
+    echo "脚本已更新并保存在当前目录 pi.sh,现在将执行新脚本。"
+    ./pi.sh ${proxy}
+    exit 0
 }
 
 show_menu() {
