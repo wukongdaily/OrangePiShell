@@ -53,3 +53,9 @@ wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukon
 | arm64 \| arm64v8 |  ✅  | 
 | armhf \| armv7 |  ✅  | 
 
+| 系统名称   | 是否支持 |
+| :----- | :--: | 
+| Ubuntu   |  ✅  |
+| Debian |  ✅  | 
+| Deepin |  ✅  | 
+
