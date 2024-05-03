@@ -1,11 +1,19 @@
+<img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black"> 
+
 # 使用方法 
 
 ### 通过ssh 连接到zero3,举例
 `ssh orangepi@192.168.66.106`
 - 默认用户名:`orangepi`
 - 默认密码:`orangepi` <br>
-<img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black"> 
-<br>
+
+
+
+### zero3 在Ubuntu系统下如何连接wifi?
+
+`sudo orangepi-config`
+
+### 一键命令如下
 
 ```bash
 wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/zero3/pi.sh && chmod +x pi.sh
