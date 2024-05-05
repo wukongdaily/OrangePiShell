@@ -14,8 +14,9 @@
 ### 一键命令如下(Ubuntu/Debian)
 > 系统带sudo
 ```bash
-wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/zero3/pi.sh && chmod +x pi.sh
+wget -O pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
 ./pi.sh proxy
+
 ```
 ### Debian的准备
 > debian系统最好先切到root身份再运行上述脚本
@@ -25,7 +26,7 @@ wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukon
 su -
 ```
 ```bash
-wget -O pi.sh https://mirror.ghproxy.com/https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/zero3/pi.sh && chmod +x pi.sh
+wget -O pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
 ./pi.sh proxy
 
 ```
