@@ -14,7 +14,7 @@
 ### 一键命令如下(Ubuntu/Debian)
 > 系统带sudo
 ```bash
-wget -O pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
+wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
 ./pi.sh proxy
 
 ```
@@ -26,7 +26,7 @@ wget -O pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh &
 su -
 ```
 ```bash
-wget -O pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
+wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
 ./pi.sh proxy
 
 ```
