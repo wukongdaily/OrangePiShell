@@ -32,7 +32,9 @@ menu_options=(
     "设置文件管理器开机自启动"
     "安装1panel面板管理工具"
     "查看1panel用户信息"
-    "安装小雅和小雅keeper"
+    "安装alist"
+    "安装小雅alist"
+    "安装小雅转存清理工具"
     "修改阿里云盘Token(32位)"
     "修改阿里云盘OpenToken(335位)"
     "修改小雅转存文件夹ID(40位)"
@@ -48,7 +50,9 @@ commands=(
     ["设置文件管理器开机自启动"]="start_filemanager"
     ["安装1panel面板管理工具"]="install_1panel_on_linux"
     ["查看1panel用户信息"]="read_user_info"
-    ["安装小雅和小雅keeper"]="install_xiaoya_alist"
+    ["安装alist"]="install_alist"
+    ["安装小雅alist"]="install_xiaoya_alist"
+    ["安装小雅转存清理工具"]="install_xiaoya_keeper"
     ["修改阿里云盘Token(32位)"]="update_aliyunpan_token"
     ["修改阿里云盘OpenToken(335位)"]="update_aliyunpan_opentoken"
     ["修改小雅转存文件夹ID(40位)"]="update_aliyunpan_folder_id"
@@ -213,9 +217,9 @@ start_filemanager() {
     echo "登录用户名：admin"
     echo "默认密码：admin（请尽快修改密码）"
     sudo wget -O /etc/systemd/system/filebrowser.service ${proxy}https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/filebrowser.service
-    sudo chmod +x /etc/systemd/system/filebrowser.service 
-    sudo systemctl daemon-reload # 重新加载systemd配置
-    sudo systemctl start filebrowser.service # 启动服务
+    sudo chmod +x /etc/systemd/system/filebrowser.service
+    sudo systemctl daemon-reload              # 重新加载systemd配置
+    sudo systemctl start filebrowser.service  # 启动服务
     sudo systemctl enable filebrowser.service # 设置开机启动
     echo "正在设置文件管理器开机自启动"
 }
@@ -237,72 +241,59 @@ read_user_info() {
     sudo 1pctl user-info
 }
 
-# 安装小雅和小雅keeper
-install_xiaoya_alist() {
+#安装alist
+install_alist() {
     local host_ip
     host_ip=$(hostname -I | awk '{print $1}')
-    if ! docker ps | grep -q "xhofe/alist"; then
-        red "检测到没有安装小雅必备依赖 AList"
-        green "正在安装alist 请稍后"
-        docker run -d --restart=unless-stopped -v /etc/alist:/opt/alist/data -p 5244:5244 -e PUID=0 -e PGID=0 -e UMASK=022 --name="alist" xhofe/alist:latest
-        sleep 3
-        docker exec -it alist ./alist admin set admin
-        echo '
-    AList已安装,现在你可以安装小雅了
+    green "正在安装alist 请稍后"
+    docker run -d --restart=unless-stopped -v /etc/alist:/opt/alist/data -p 5244:5244 -e PUID=0 -e PGID=0 -e UMASK=022 --name="alist" xhofe/alist:latest
+    sleep 3
+    docker exec -it alist ./alist admin set admin
+    echo '
+    AList已安装,已帮你设置好用户名和密码,若修改请在web面板修改即可。
     用户: admin 
     密码: admin
     '
-        green 浏览器访问:http://${host_ip}:5244
-    else
+    green 浏览器访问:http://${host_ip}:5244
+}
 
-        rm -rf /etc/xiaoya/mytoken.txt >/dev/null 2>&1
-        rm -rf /etc/xiaoya/myopentoken.txt >/dev/null 2>&1
-        rm -rf /etc/xiaoya/temp_transfer_folder_id.txt >/dev/null 2>&1
-        cyan '
+# 安装小雅alist
+install_xiaoya_alist() {
+    local host_ip
+    host_ip=$(hostname -I | awk '{print $1}')
+    rm -rf /etc/xiaoya/mytoken.txt >/dev/null 2>&1
+    rm -rf /etc/xiaoya/myopentoken.txt >/dev/null 2>&1
+    rm -rf /etc/xiaoya/temp_transfer_folder_id.txt >/dev/null 2>&1
+    cyan '
         根据如下三个网址的提示完成token的填写
         阿里云盘Token(32位):        https://alist.nn.ci/zh/guide/drivers/aliyundrive.html
         阿里云盘OpenToken(335位):   https://alist.nn.ci/tool/aliyundrive/request.html
         阿里云盘转存目录folder id:   https://www.aliyundrive.com/s/rP9gP3h9asE
         '
+    # 调用修改后的脚本
+    bash -c "$(curl https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya.sh)"
+    # 检查xiaoyaliu/alist 是否运行，如果运行了 则提示下面的信息，否则退出
+    if ! docker ps | grep -q "xiaoyaliu/alist"; then
+        echo "Error: xiaoyaliu/alist Docker 容器未运行"
+        return 1
+    fi
 
-        # 调用修改后的脚本
-        remove_docker_rmi "http://docker.xiaoya.pro/update_new.sh"
-        # 检查xiaoyaliu/alist 是否运行，如果运行了 则提示下面的信息，否则退出
-        if ! docker ps | grep -q "xiaoyaliu/alist"; then
-            echo "Error: xiaoyaliu/alist Docker 容器未运行"
-            return 1
-        fi
-        green "正在安装小雅转存清理工具..."
-        bash -c "$(curl -sLk https://xiaoyahelper.ddsrem.com/aliyun_clear.sh | tail -n +2)" -s 5
-        echo '
+    echo '
     小雅docker已启动
     webdav 信息如下
     用户: guest 
     密码: guest_Api789
     '
-        green 请您耐心等待xiaoya数据库更新完毕,5分钟后再访问
-        green 浏览器访问:http://${host_ip}:5678
-        green "已设置实时清理，只要产生了播放缓存一分钟内立即清理转存文件夹里的文件."
-    fi
+    green 请您耐心等待xiaoya数据库更新完毕,建议5分钟后再访问
+    green 浏览器访问:http://${host_ip}:5678
 
 }
 
-# 防止小雅重复下载镜像
-remove_docker_rmi() {
-    local script_url="$1"
-    # 下载脚本内容
-    local script_content=$(curl -sSL "$script_url")
-    if [[ -z "$script_content" ]]; then
-        echo "Failed to download script from: $script_url"
-        return 1
-    fi
-    # 移除所有含有 "docker rmi" 的行
-    local modified_content=$(echo "$script_content" | sed '/docker rmi/d')
-    # 将修改后的内容保存到临时文件
-    local modified_script="/tmp/modified_script.sh"
-    echo "$modified_content" >"$modified_script"
-    # 使用 bash -c 执行修改后的脚本文件
-    bash -c "bash $modified_script"
+# 安装小雅转存清理工具
+install_xiaoya_keeper() {
+    green "正在安装小雅转存清理工具..."
+    bash -c "$(curl -sLk https://xiaoyahelper.ddsrem.com/aliyun_clear.sh | tail -n +2)" -s 5
+    green "已设置实时清理，只要产生了播放缓存一分钟内立即清理转存文件夹里的文件."
 }
 
 # 更新阿里云盘Token
