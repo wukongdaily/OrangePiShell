@@ -285,6 +285,7 @@ install_xiaoya_alist() {
     密码: guest_Api789
     '
     green 请您耐心等待xiaoya数据库更新完毕,建议5分钟后再访问
+    green 建议使用1panel查看xiaoya容器日志 观察进度
     green 浏览器访问:http://${host_ip}:5678
 
 }
