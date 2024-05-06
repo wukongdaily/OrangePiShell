@@ -11,7 +11,7 @@
 
 `sudo orangepi-config`
 
-### 一键命令如下(Ubuntu/Debian)
+### 一键命令如下(Ubuntu)
 > 系统带sudo
 ```bash
 wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
@@ -47,6 +47,7 @@ wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh 
 - TF卡写盘工具：https://etcher.balena.io/
 - 教学视频：https://www.bilibili.com/video/BV1ND421T7nB/
 - 教学视频2:https://youtu.be/Ym4d7uCo9eg
+- 镜像仓库:https://cafe.cpolar.cn/wkdaily/zero3
 # 兼容的系统
 | 设备 \| 架构   | 是否支持 |
 | :----- | :--: | 
