@@ -1,5 +1,6 @@
 <img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black"> 
 
+### 镜像仓库:https://cafe.cpolar.cn/wkdaily/zero3
 ### 通过ssh 连接到zero3,举例
 `ssh orangepi@192.168.66.106`
 - 默认用户名:`orangepi`
@@ -47,7 +48,7 @@ wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh 
 - TF卡写盘工具：https://etcher.balena.io/
 - 教学视频：https://www.bilibili.com/video/BV1ND421T7nB/
 - 教学视频2:https://youtu.be/Ym4d7uCo9eg
-- 镜像仓库:https://cafe.cpolar.cn/wkdaily/zero3
+
 # 兼容的系统
 | 设备 \| 架构   | 是否支持 |
 | :----- | :--: | 
