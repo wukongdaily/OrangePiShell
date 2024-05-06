@@ -261,9 +261,9 @@ install_alist() {
 install_xiaoya_alist() {
     local host_ip
     host_ip=$(hostname -I | awk '{print $1}')
-    rm -rf /etc/xiaoya/mytoken.txt >/dev/null 2>&1
-    rm -rf /etc/xiaoya/myopentoken.txt >/dev/null 2>&1
-    rm -rf /etc/xiaoya/temp_transfer_folder_id.txt >/dev/null 2>&1
+    rm -rf /mnt/xiaoya/mytoken.txt >/dev/null 2>&1
+    rm -rf /mnt/xiaoya/myopentoken.txt >/dev/null 2>&1
+    rm -rf /mnt/xiaoya/temp_transfer_folder_id.txt >/dev/null 2>&1
     cyan '
         根据如下三个网址的提示完成token的填写
         阿里云盘Token(32位):        https://alist.nn.ci/zh/guide/drivers/aliyundrive.html
@@ -298,7 +298,7 @@ install_xiaoya_keeper() {
 
 # 更新阿里云盘Token
 update_aliyunpan_token() {
-    local token_file="/etc/xiaoya/mytoken.txt"
+    local token_file="/mnt/xiaoya/mytoken.txt"
     cyan '
         根据如下网址的提示完成token的填写
         阿里云盘Token(32位): https://alist.nn.ci/zh/guide/drivers/aliyundrive.html#%E5%88%B7%E6%96%B0%E4%BB%A4%E7%89%8C
@@ -326,7 +326,7 @@ update_aliyunpan_token() {
 
 # 更新阿里云盘opentoken
 update_aliyunpan_opentoken() {
-    local token_file="/etc/xiaoya/myopentoken.txt"
+    local token_file="/mnt/xiaoya/myopentoken.txt"
     cyan '
         根据如下网址的提示完成opentoken的填写
         阿里云盘OpenToken(335位): https://alist.nn.ci/tool/aliyundrive/request.html
@@ -353,7 +353,7 @@ update_aliyunpan_opentoken() {
 
 # 更新小雅转存文件夹id
 update_aliyunpan_folder_id() {
-    local token_file="/etc/xiaoya/temp_transfer_folder_id.txt"
+    local token_file="/mnt/xiaoya/temp_transfer_folder_id.txt"
     cyan '
         根据如下网址的提示完成小雅转存文件夹ID的填写
         阿里云盘小雅转存文件夹ID(40位): https://www.aliyundrive.com/s/rP9gP3h9asE
