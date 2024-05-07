@@ -183,6 +183,7 @@ install_filemanager() {
 
     if type -p $filemanager_bin >/dev/null 2>&1; then
         green "Successfully installed"
+        green "安装成功,现在您可以执行第3项开启文件管理并设置自启动"
         trap ERR
         return 0
     else
@@ -213,15 +214,15 @@ start_filemanager() {
     fi
     local host_ip
     host_ip=$(hostname -I | awk '{print $1}')
-    echo "filebrowser 文件管理器已启动，可以通过 http://${host_ip}:8080 访问"
-    echo "登录用户名：admin"
-    echo "默认密码：admin（请尽快修改密码）"
-    sudo wget -O /etc/systemd/system/filebrowser.service ${proxy}https://raw.githubusercontent.com/wukongdaily/OrangePiShell/master/filebrowser.service
+    green "filebrowser 文件管理器已启动，可以通过 http://${host_ip}:8080 访问"
+    green "登录用户名：admin"
+    green "默认密码：admin（请尽快修改密码）"
+    sudo wget -O /etc/systemd/system/filebrowser.service "https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/filebrowser.service"
     sudo chmod +x /etc/systemd/system/filebrowser.service
     sudo systemctl daemon-reload              # 重新加载systemd配置
     sudo systemctl start filebrowser.service  # 启动服务
     sudo systemctl enable filebrowser.service # 设置开机启动
-    echo "正在设置文件管理器开机自启动"
+    yellow "已设置文件管理器开机自启动,下次开机可直接访问文件管理器"
 }
 
 # 安装1panel面板
