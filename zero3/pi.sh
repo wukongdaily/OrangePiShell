@@ -70,6 +70,17 @@ update_system_packages() {
     green "Updating system packages..."
     sudo apt update
     sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+    if ! command -v curl &> /dev/null; then
+        red "curl is not installed. Installing now..."
+        sudo apt install -y curl
+        if command -v curl &> /dev/null; then
+            green "curl has been installed successfully."
+        else
+            echo "Failed to install curl. Please check for errors."
+        fi
+    else
+        echo "curl is already installed."
+    fi
 }
 
 # 安装文件管理器
