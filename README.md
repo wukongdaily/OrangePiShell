@@ -33,7 +33,6 @@ wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh 
 ```
 
 
-<img src="https://github.com/wukongdaily/OrangePiShell/assets/143675923/67baea9e-9222-4409-8aae-b6e9242c721d" width="40%" />
 
 ***
 
@@ -62,6 +61,8 @@ wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh 
 | Debian |  ✅  | 
 | Deepin |  ✅  |
 # 常见问题汇总⬇️⬇️⬇️
+[filebrowser 如何设置自定义端口](https://github.com/wukongdaily/OrangePiShell/wiki/filebrowser-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AB%AF%E5%8F%A3)
+
 [常见问题总结（持续更新中](https://github.com/wukongdaily/OrangePiShell/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
 [常见问题总结（持续更新中）](https://cafe.cpolar.cn/wkdaily/zero3/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
