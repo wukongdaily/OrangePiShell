@@ -6,7 +6,9 @@
 - 默认用户名:`orangepi`
 - 默认密码:`orangepi` <br>
 #### 首次使用 如果时间不正确可以先设置时区
-`sudo timedatectl set-timezone Asia/Shanghai`
+`sudo orangepi-config`
+
+<img src="https://github.com/wukongdaily/OrangePiShell/assets/143675923/0d9e5421-53b4-4a63-b7a1-025ab977eed5" width="40%" />
 
 
 ### zero3 在Ubuntu系统下如何连接wifi?
