@@ -5,7 +5,8 @@
 `ssh orangepi@192.168.66.106`
 - 默认用户名:`orangepi`
 - 默认密码:`orangepi` <br>
-
+#### 首次使用 如果时间不正确可以先设置时区
+`sudo timedatectl set-timezone Asia/Shanghai`
 
 
 ### zero3 在Ubuntu系统下如何连接wifi?
