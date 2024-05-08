@@ -5,15 +5,18 @@
 `ssh orangepi@192.168.66.106`
 - 默认用户名:`orangepi`
 - 默认密码:`orangepi` <br>
-#### 首次使用 如果时间不正确可以先设置时区
-`sudo orangepi-config`
+#### 首次使用 如果时间不正确可以先更新软件 然后设置时区
+```
+sudo apt update
+sudo orangepi-config
+```
+
 
 <img src="https://github.com/wukongdaily/OrangePiShell/assets/143675923/0d9e5421-53b4-4a63-b7a1-025ab977eed5" width="40%" />
 
 
-### zero3 在Ubuntu系统下如何连接wifi?
+### zero3 在Ubuntu系统下如何连接wifi? 如上图所示都有
 
-`sudo orangepi-config`
 
 ### 一键命令如下(Ubuntu)
 > 系统带sudo
