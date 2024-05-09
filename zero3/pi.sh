@@ -19,11 +19,6 @@ if [ "$(id -u)" -ne 0 ]; then
     exit $?
 fi
 
-proxy=""
-if [ $# -gt 0 ]; then
-    proxy="https://mirror.ghproxy.com/"
-fi
-
 declare -a menu_options
 declare -A commands
 menu_options=(
@@ -170,7 +165,7 @@ install_filemanager() {
         return 7
     fi
     filemanager_file="${filemanager_os}-$filemanager_arch-filebrowser$filemanager_dl_ext"
-    filemanager_url="${proxy}https://github.com/filebrowser/filebrowser/releases/download/v2.28.0/$filemanager_file"
+    filemanager_url="https://mirror.ghproxy.com/https://github.com/filebrowser/filebrowser/releases/download/v2.28.0/$filemanager_file"
     echo "$filemanager_url"
 
     # Use $PREFIX for compatibility with Termux on Android
@@ -453,7 +448,7 @@ install_casaos() {
 update_scripts() {
     wget -O pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
     echo "脚本已更新并保存在当前目录 pi.sh,现在将执行新脚本。"
-    ./pi.sh ${proxy}
+    ./pi.sh
     exit 0
 }
 
