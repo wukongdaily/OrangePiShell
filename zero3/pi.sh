@@ -30,6 +30,7 @@ menu_options=(
     "安装alist"
     "安装小雅alist"
     "安装小雅转存清理工具"
+    "安装小雅tvbox"
     "修改阿里云盘Token(32位)"
     "修改阿里云盘OpenToken(335位)"
     "修改小雅转存文件夹ID(40位)"
@@ -55,6 +56,8 @@ commands=(
     ["安装盒子助手docker版"]="install_wukongdaily_box"
     ["安装CasaOS面板"]="install_casaos"
     ["更新脚本"]="update_scripts"
+    ["安装小雅tvbox"]="install_xiaoya_tvbox"
+    
 )
 
 # 更新系统软件包
@@ -452,6 +455,18 @@ update_scripts() {
     exit 0
 }
 
+# 安装小雅xiaoya-tvbox
+# 参考 https://har01d.cn/notes/alist-tvbox.html
+install_xiaoya_tvbox(){
+    local host_ip
+    host_ip=$(hostname -I | awk '{print $1}')
+    wget -qO xt.sh https://d.har01d.cn/update_xiaoya.sh
+    sudo chmod +x xt.sh
+    sudo ./xt.sh -d /mnt/xiaoya
+    green "tvbox 使用的json地址是 http://${host_ip}:4567/sub/0"
+    green "更多文档请查看:https://har01d.cn/notes/alist-tvbox.html"
+}
+
 show_menu() {
     clear
     greenline "————————————————————————————————————————————————————"
@@ -465,11 +480,11 @@ show_menu() {
     echo "请选择操作："
 
     # 特殊处理的项数组
-    special_items=("")
+    special_items=("安装小雅tvbox")
     for i in "${!menu_options[@]}"; do
         if [[ " ${special_items[*]} " =~ " ${menu_options[i]} " ]]; then
             # 如果当前项在特殊处理项数组中，使用特殊颜色
-            highlight "$((i + 1)). ${menu_options[i]}"
+            cyan "$((i + 1)). ${menu_options[i]}"
         else
             # 否则，使用普通格式
             echo "$((i + 1)). ${menu_options[i]}"
