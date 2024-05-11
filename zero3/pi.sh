@@ -465,6 +465,14 @@ install_xiaoya_tvbox(){
     sudo ./xt.sh -d /mnt/xiaoya
     green "tvbox 使用的json地址是 http://${host_ip}:4567/sub/0"
     green "更多文档请查看:https://har01d.cn/notes/alist-tvbox.html"
+    green "上述这些网址,建议等足5分钟后再查看!\n若没有配置过token信息,可以在此处添加账号 http://${host_ip}:4567/#/accounts"
+    echo '
+    小雅tvbox
+    webdav 信息如下
+    端口:5344
+    用户: guest 
+    密码: guest_Api789
+    '
 }
 
 show_menu() {
