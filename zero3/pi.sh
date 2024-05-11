@@ -36,6 +36,7 @@ menu_options=(
     "修改小雅转存文件夹ID(40位)"
     "安装内网穿透工具Cpolar"
     "安装盒子助手docker版"
+    "安装特斯拉伴侣TeslaMate"
     "安装CasaOS面板"
     "更新脚本"
 )
@@ -57,7 +58,8 @@ commands=(
     ["安装CasaOS面板"]="install_casaos"
     ["更新脚本"]="update_scripts"
     ["安装小雅tvbox"]="install_xiaoya_tvbox"
-    
+    ["安装特斯拉伴侣TeslaMate"]="install_teslamate"
+
 )
 
 # 更新系统软件包
@@ -474,6 +476,24 @@ install_xiaoya_tvbox(){
     密码: guest_Api789
     '
 }
+# 安装特斯拉伴侣
+install_teslamate() {
+    check_docker_compose
+    sudo mkdir -p /opt/teslamate
+    wget -O /opt/teslamate/docker-compose.yml https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/teslamate/docker-compose.yml
+    cd /opt/teslamate
+    sudo docker-compose up -d
+}
+
+check_docker_compose() {
+    if which docker-compose > /dev/null 2>&1; then
+        echo "Docker Compose is installed."
+        docker-compose --version
+    else
+        echo "Docker Compose is not installed. You can install 1panel first."
+        exit 1
+    fi
+}
 
 show_menu() {
     clear
@@ -488,7 +508,7 @@ show_menu() {
     echo "请选择操作："
 
     # 特殊处理的项数组
-    special_items=("安装小雅tvbox")
+    special_items=("安装小雅tvbox" "安装特斯拉伴侣TeslaMate")
     for i in "${!menu_options[@]}"; do
         if [[ " ${special_items[*]} " =~ " ${menu_options[i]} " ]]; then
             # 如果当前项在特殊处理项数组中，使用特殊颜色
