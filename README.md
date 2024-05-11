@@ -44,11 +44,8 @@ wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh 
 
 ```
 
-<img src="https://github.com/wukongdaily/OrangePiShell/assets/143675923/67baea9e-9222-4409-8aae-b6e9242c721d" width="40%" />
 
-***
-
-<img src="https://github.com/wukongdaily/OrangePiShell/assets/143675923/56898b74-ea47-44aa-8de3-e14e12873a25" width="40%" />
+<img src="https://cafe.cpolar.cn/wkdaily/zero3/releases/download/v1/pre.jpg" width="40%" />
 
 
 ### 网盘
