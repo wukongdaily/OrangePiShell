@@ -66,11 +66,12 @@ wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh 
 | arm64 \| arm64v8 |  ✅  | 
 | armhf \| armv7 |  ✅  | 
 
-| 系统名称   | 是否支持 |
-| :----- | :--: | 
-| Ubuntu   |  ✅  |
-| Debian |  ✅  | 
-| Deepin |  ✅  | 
+| 系统 | 或 |机型  |
+|-----|-----|-----|
+| Ubuntu ✅ | Debian ✅ | Deepin ✅ |
+| OpenWrt ✅ | iStoreOS ✅ | MT-3000 ✅ |
+| NanoPi-R2S ✅ | NanoPi-R4S ✅ | NanoPi-Neo3 ✅ |
+
 # 常见问题汇总⬇️⬇️⬇️
 [filebrowser 如何设置自定义端口](https://github.com/wukongdaily/OrangePiShell/wiki/filebrowser-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AB%AF%E5%8F%A3)
 
