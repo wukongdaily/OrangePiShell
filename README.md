@@ -5,7 +5,7 @@
 `ssh orangepi@192.168.66.106`
 - 默认用户名:`orangepi`
 - 默认密码:`orangepi` <br>
-#### 准备工作：首次使用 如果时间不正确可以先更新软件 然后设置时区
+#### 准备：首次使用 如果时间不正确可以先更新软件 然后设置时区
 ```
 # 举例 可以先手动设置好 当前时间 比如 
 sudo date -s "2024-05-11 07:45:00"
@@ -36,6 +36,11 @@ su -
 ```
 ```bash
 wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
+
+```
+### OpenWrt/iStoreOS
+```bash
+wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
 
 ```
 
