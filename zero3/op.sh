@@ -33,14 +33,15 @@ install_alist() {
 
 # 安装盒子助手docker版
 install_wukongdaily_box() {
-    mkdir -p /mnt/tvhelper_data
-    chmod 777 /mnt/tvhelper_data
+    mkdir -p /opt/tvhelper_data
+    chmod 777 /opt/tvhelper_data
+    green 若使用自定义安装apk功能,可将apk放到/opt/tvhelper_data目录,用完记得及时清理
     docker run -d \
         --restart unless-stopped \
         --name tvhelper \
         -p 2299:22 \
         -p 2288:80 \
-        -v "/mnt/tvhelper_data:/tvhelper/shells/data" \
+        -v "/opt/tvhelper_data:/tvhelper/shells/data" \
         -e PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/android-sdk/platform-tools \
         wukongdaily/box:latest
     if ! docker ps | grep -q "wukongdaily/box"; then
