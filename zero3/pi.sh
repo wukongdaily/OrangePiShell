@@ -479,7 +479,7 @@ install_xiaoya_tvbox(){
 # 安装特斯拉伴侣
 install_teslamate() {
     check_docker_compose
-    sudo mkdir -p /opt/teslamate
+    sudo mkdir -p /opt/teslamate/import
     wget -O /opt/teslamate/docker-compose.yml https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/teslamate/docker-compose.yml
     cd /opt/teslamate
     sudo docker-compose up -d
