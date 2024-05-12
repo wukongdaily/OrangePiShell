@@ -18,27 +18,17 @@ sudo orangepi-config
 
 <img src="https://github.com/wukongdaily/OrangePiShell/assets/143675923/0d9e5421-53b4-4a63-b7a1-025ab977eed5" width="40%" />
 
+> 调用命令之前最好先切后到root模式 ubuntu/synology 使用 `sudo -i`<br>
+> debian 使用 `su -` 
 
-### zero3 在Ubuntu系统下如何连接wifi? 如上图所示都有
+### Ubuntu/Debian/Synology等基于Debian的Linux
 
-
-> 准备工作做好后,可以调用如下命令
 ```bash
 wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
 
 ```
-### Debian的准备
-> debian系统最好先切到root身份再运行上述脚本
 
-
-```bash
-su -
-```
-```bash
-wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
-
-```
-### OpenWrt/iStoreOS
+### OpenWrt/iStoreOS 软路由系统
 ```bash
 wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
 
@@ -68,6 +58,7 @@ wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh 
 | Ubuntu ✅ | Debian ✅ | Deepin ✅ |
 | OpenWrt ✅ | iStoreOS ✅ | MT-3000 ✅ |
 | NanoPi-R2S ✅ | NanoPi-R4S ✅ | NanoPi-Neo3 ✅ |
+| Synology ✅ |  |   |
 
 # 常见问题汇总⬇️⬇️⬇️
 [filebrowser 如何设置自定义端口](https://github.com/wukongdaily/OrangePiShell/wiki/filebrowser-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AB%AF%E5%8F%A3)
