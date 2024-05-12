@@ -10,6 +10,15 @@ light_magenta() { echo -e "\033[95m\033[01m[NOTICE] $1\033[0m"; }
 highlight() { echo -e "\033[32m\033[01m$1\033[0m"; }
 cyan() { echo -e "\033[38;2;0;255;255m$1\033[0m"; }
 
+is_x86_64_router() {
+    DISTRIB_ARCH=$(cat /etc/openwrt_release | grep "DISTRIB_ARCH" | cut -d "'" -f 2)
+    if [ "$DISTRIB_ARCH" = "x86_64" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 get_hostname() {
     hostname=$(uci get system.@system[0].hostname)
     echo "${hostname}.lan"
@@ -95,8 +104,81 @@ install_1panel_on_openwrt() {
     默认密码：1panel_password
     默认入口：entrance'
     green http://${host_ip}:10086/entrance
-    green 或者访问 http://路由器ip:10086/entrance
+    green "或者访问 http://路由器ip:10086/entrance"
 
+}
+
+#根据release地址和命名前缀获取apk地址
+get_docker_compose_url() {
+    if [ $# -eq 0 ]; then
+        echo "需要提供GitHub releases页面的URL作为参数。"
+        return 1
+    fi
+    local releases_url=$1
+    # 使用curl获取重定向的URL
+    latest_url=$(curl -Ls -o /dev/null -w "%{url_effective}" "$releases_url")
+    # 使用sed从URL中提取tag值,并保留前导字符'v'
+    tag=$(echo $latest_url | sed 's|.*/v|v|')
+    # 检查是否成功获取到tag
+    if [ -z "$tag" ]; then
+        echo "未找到最新的release tag。"
+        return 1
+    fi
+    # 拼接docker-compose下载链接
+    if is_x86_64_router; then
+        platform="docker-compose-linux-x86_64"
+    else
+        platform="docker-compose-linux-aarch64"
+    fi
+    local repo_path=$(echo "$releases_url" | sed -n 's|https://github.com/\(.*\)/releases/latest|\1|p')
+    if [[ $(curl -s ipinfo.io/country) == "CN" ]]; then
+        docker_compose_download_url="https://cafe.cpolar.cn/wkdaily/docker-compose/raw/branch/main/${platform}"
+    else
+        docker_compose_download_url="https://github.com/${repo_path}/releases/download/${tag}/${platform}"
+    fi
+    echo "$docker_compose_download_url"
+}
+
+# 下载并安装Docker Compose
+do_install_docker_compose() {
+
+    # https://github.com/docker/compose/releases/download/v2.26.0/docker-compose-linux-aarch64
+    # 检查/usr/bin/docker是否存在并且可执行
+    if [ -f "/usr/bin/docker" ] && [ -x "/usr/bin/docker" ]; then
+        echo "Docker is installed and has execute permissions."
+    else
+        red "警告 您还没有安装Docker"
+        exit 1
+    fi
+    local github_releases_url="https://github.com/docker/compose/releases/latest"
+    local docker_compose_url=$(get_docker_compose_url "$github_releases_url")
+    cyan "最新版docker-compose 地址:$docker_compose_url"
+    cyan "即将下载最新版docker-compose standalone"
+    wget -O /usr/bin/docker-compose $docker_compose_url
+    if [ $? -eq 0 ]; then
+        green "docker-compose下载并安装成功,你可以使用啦"
+        chmod +x /usr/bin/docker-compose
+    else
+        red "安装失败,请检查网络连接.或者手动下载到 /usr/bin/docker-compose 记得赋予执行权限"
+        yellow "刚才使用的地址是:$docker_compose_url"
+        exit 1
+    fi
+
+}
+
+# 安装特斯拉伴侣
+install_teslamate() {
+    if which docker-compose >/dev/null 2>&1; then
+        echo "Docker Compose is installed."
+        docker-compose --version
+        mkdir -p /tmp/teslamate
+        wget -O /tmp/teslamate/docker-compose.yml https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/teslamate/docker-compose.yml
+        cd /tmp/teslamate
+        docker-compose up -d
+    else
+        red "Docker Compose is not installed. "
+        do_install_docker_compose
+    fi
 }
 
 # *************************************************************
@@ -116,7 +198,8 @@ while true; do
     echo " 2. 安装盒子助手docker版"
     echo " 3. 安装AList docker版"
     echo " 4. 安装1panel面板docker版"
-    echo " 5. 更新脚本"
+    echo " 5. 安装特斯拉伴侣TeslaMate"
+    echo " 6. 更新脚本"
     echo
     echo " Q. 退出本程序"
     echo
@@ -137,6 +220,9 @@ while true; do
         install_1panel_on_openwrt
         ;;
     5)
+        install_teslamate
+        ;;
+    6)
         update_scripts
         ;;
     q | Q)
