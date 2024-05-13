@@ -70,4 +70,5 @@ wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh 
 [使用1panel 添加定时任务即可](https://cafe.cpolar.cn/wkdaily/zero3/wiki/%E5%A6%82%E4%BD%95%E5%AE%9A%E6%97%B6%E9%87%8D%E5%90%AF%E5%B0%8F%E9%9B%85)
 
 # 参考项目
-https://github.com/DDS-Derek/xiaoya-alist
+https://github.com/DDS-Derek/xiaoya-alist <br>
+https://har01d.cn/#/notes/alist-tvbox
