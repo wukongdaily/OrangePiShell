@@ -1,8 +1,9 @@
 <img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black"> 
 
 ### 镜像仓库:https://cafe.cpolar.cn/wkdaily/zero3
-### 博客地址:https://wkdaily.cpolar.cn
+### TVBOX APK 下载地址:https://wkdaily.cpolar.cn/archives/free
 ### 通过ssh 连接到zero3,举例
+使用主机名连接ssh `ssh orangepi@orangepizero3.lan` <br>或使用ip地址连接ssh
 `ssh orangepi@192.168.66.106`
 - 默认用户名:`orangepi`
 - 默认密码:`orangepi` <br>
@@ -47,19 +48,17 @@ wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh 
 - TF卡写盘工具：https://etcher.balena.io/
 - 教学视频：https://www.bilibili.com/video/BV1ND421T7nB/
 - 教学视频2:https://youtu.be/Ym4d7uCo9eg
-# 兼容的系统
-| 设备 \| 架构   | 是否支持 |
-| :----- | :--: | 
-| x86-64 \| amd64   |  ✅  |
-| arm64 \| arm64v8 |  ✅  | 
-| armhf \| armv7 |  ✅  | 
+# 兼容的系统（ARM64 / AMD64）
+
+
 
 | 系统 | 或 |机型  |
 |-----|-----|-----|
 | Ubuntu ✅ | Debian ✅ | Deepin ✅ |
 | OpenWrt ✅ | iStoreOS ✅ | MT-3000 ✅ |
 | NanoPi-R2S ✅ | NanoPi-R4S ✅ | NanoPi-Neo3 ✅ |
-| Synology ✅ |  |   |
+| Synology ✅ | QNAP ✅ |UNRAID ✅   |
+| Raspberrypi ✅ | PVE ✅|Zero3 ✅  |
 
 # 常见问题汇总⬇️⬇️⬇️
 [filebrowser 如何设置自定义端口](https://github.com/wukongdaily/OrangePiShell/wiki/filebrowser-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AB%AF%E5%8F%A3)
