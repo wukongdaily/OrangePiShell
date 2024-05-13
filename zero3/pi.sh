@@ -170,7 +170,7 @@ install_filemanager() {
         return 7
     fi
     filemanager_file="${filemanager_os}-$filemanager_arch-filebrowser$filemanager_dl_ext"
-    filemanager_url="https://mirror.ghproxy.com/https://github.com/filebrowser/filebrowser/releases/download/v2.28.0/$filemanager_file"
+    filemanager_url="https://cafe.cpolar.cn/wkdaily/filebrowser/raw/branch/main/$filemanager_file"
     echo "$filemanager_url"
 
     # Use $PREFIX for compatibility with Termux on Android
@@ -439,7 +439,7 @@ install_wukongdaily_box() {
         local host_ip
         host_ip=$(hostname -I | awk '{print $1}')
         green "盒子助手docker版已启动，可以通过 http://${host_ip}:2288 验证是否安装成功"
-        green "还可以通过 ssh ${host_ip} -p 2299 连接到容器内 执行 ./tv.sh 使用该工具"
+        green "还可以通过 ssh root@${host_ip} -p 2299 连接到容器内 执行 ./tv.sh 使用该工具 ssh密码password"
         green "文档和教学视频：https://www.youtube.com/watch?v=xAk-3TxeXxQ \n  https://www.bilibili.com/video/BV1Rm411o78P"
     fi
 }
