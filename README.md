@@ -1,6 +1,7 @@
 <img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black"> 
 
 ### 镜像仓库:https://cafe.cpolar.cn/wkdaily/zero3
+### 博客地址:https://wkdaily.cpolar.cn
 ### 通过ssh 连接到zero3,举例
 `ssh orangepi@192.168.66.106`
 - 默认用户名:`orangepi`
