@@ -69,6 +69,22 @@ wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh 
 # 如何定时重启小雅？
 [使用1panel 添加定时任务即可](https://cafe.cpolar.cn/wkdaily/zero3/wiki/%E5%A6%82%E4%BD%95%E5%AE%9A%E6%97%B6%E9%87%8D%E5%90%AF%E5%B0%8F%E9%9B%85)
 
+# 小雅alsit 和 小雅tvbox 有啥区别吗？
+```
+截止到我做视频的时候，小雅alist 和 小雅tvbox 是有如下区别的。
+1、小雅alist 是比较轻量化的docker。主要是影音库或者理解为一个云端的数据库。它占用内存较低，最多200M内存吧，如果你的宿主机内存不大，那么我建议安装这个（视频里演示的那种）。
+而小雅tvbox，是针对tvbox 这款软件做了一些定制的，貌似是用java写的后端？我也不确定，实际测试这款docker大约占用600M内存。x86和arm 都是如此。
+2、小雅tvbox 集成了友好的WebUI管理页面，你可以很方便的在4567端口的web页，添加阿里、pikpak账号。你还可以定制化tvbox的订阅，详细的文档建议参考作者的项目
+https://github.com/power721/alist-tvbox/blob/master/doc/README_zh.md （该作者写的文档相当的细致 爆赞👍）功能很多，配合tvbox 堪称完美！
+3、小雅alist 搭建后，最好是配合安装小雅转存清理工具xiaoya-keeper，因为它每次播放或者用播放器搜刮的时候可能会转存一份到自己的云盘。如果有这个清理工具就能帮助它迅速删除。避免占用自己的空间。
+而小雅tvbox 则不需要。
+4、小雅alist 的影音数据库的更新操作依赖于容器的重启。因此最好设置一个定时任务，定时重启。（这只是目前为止，或许以后作者会加入定时更新的功能，大家还是自行观察每天数据库到底有没有更新，以实际为准。）
+而小雅tvbox，由于在4567的web页面 已经默认开启了定时更新功能，并且还能设置更新的时间。
+5、小雅alist默认端口号5678，小雅tvbox默认端口号5344，这个端口号很重要，webdav 如果写错了端口号是无法读取的。
+6、如果 小雅alist 和 小雅tvbox 大家二选一就行。尽量别重复搭建。
+```
+<img src="https://static.har01d.cn/tvbox/atv_bilibili.png" width="80%"/>
+
 # 参考项目
 https://github.com/DDS-Derek/xiaoya-alist <br>
 https://har01d.cn/#/notes/alist-tvbox
