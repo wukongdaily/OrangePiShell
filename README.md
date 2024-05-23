@@ -91,7 +91,7 @@ https://github.com/power721/alist-tvbox/blob/master/doc/README_zh.md
 
 5、小雅alist默认端口号5678，小雅tvbox默认端口号5344，这个端口号很重要，webdav 如果写错了端口号是无法读取的。
 
-6、如果 小雅alist 和 小雅tvbox 大家二选一就行。尽量别重复搭建。因为小雅tvbox搭建的时候应该也会拉取小雅alist
+6、小雅alist 和 小雅tvbox 大家二选一就行。尽量别重复搭建。因为小雅tvbox搭建的时候应该也会拉取小雅alist
 这样就重复了。
 
 
