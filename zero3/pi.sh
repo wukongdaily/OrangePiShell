@@ -243,6 +243,17 @@ install_1panel_on_linux() {
     curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh && sudo bash quick_start.sh
     intro="https://1panel.cn/docs/installation/cli/"
     if command -v 1pctl &>/dev/null; then
+        echo '{
+  "registry-mirrors": [
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://hub-mirror.c.163.com",
+    "https://docker.m.daocloud.io",
+    "https://ghcr.io",
+    "https://mirror.baidubce.com",
+    "https://docker.nju.edu.cn"
+  ]
+}' | sudo tee /etc/docker/daemon.json >/dev/null
+        sudo /etc/init.d/docker restart
         green "如何卸载1panel 请参考：$intro"
     else
         red "未安装1panel"
