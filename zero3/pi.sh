@@ -38,6 +38,7 @@ menu_options=(
     "安装盒子助手docker版"
     "安装特斯拉伴侣TeslaMate"
     "安装CasaOS面板"
+    "安装内网穿透工具DDNSTO"
     "更新脚本"
 )
 
@@ -59,6 +60,7 @@ commands=(
     ["更新脚本"]="update_scripts"
     ["安装小雅tvbox"]="install_xiaoya_tvbox"
     ["安装特斯拉伴侣TeslaMate"]="install_teslamate"
+    ["安装内网穿透工具DDNSTO"]="install_ddnsto"
 
 )
 
@@ -493,6 +495,12 @@ check_docker_compose() {
         echo "Docker Compose is not installed. You can install 1panel first."
         exit 1
     fi
+}
+
+# 安装DDNSTO 
+install_ddnsto(){
+    green "请登录 https://www.ddnsto.com/app/#/devices  在控制台复制 令牌 令牌=token"
+    sh -c "$(curl -sSL http://fw.koolcenter.com/binary/ddnsto/linux/install_ddnsto_linux.sh)"
 }
 
 show_menu() {
