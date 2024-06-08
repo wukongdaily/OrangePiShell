@@ -103,3 +103,4 @@ https://github.com/power721/alist-tvbox/blob/master/doc/README_zh.md
 # 参考项目
 https://github.com/DDS-Derek/xiaoya-alist <br>
 https://har01d.cn/#/notes/alist-tvbox
+https://github.com/monlor/docker-xiaoya
