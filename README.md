@@ -99,6 +99,9 @@ https://github.com/power721/alist-tvbox/blob/master/doc/README_zh.md
 👉👉👉[关于小雅tvbox的介绍可以参考本视频11分后](https://www.bilibili.com/video/BV1ED421V7Dr/?share_source=copy_web&vd_source=0bb92241fb28a55c32c2e5132116b594&t=677) 👈👈👈
 
 <img src="https://static.har01d.cn/tvbox/atv_bilibili.png" width="80%"/>
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/143675923/337966002-41161dc0-a503-4c72-9fe1-2ee2a700b988.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240609%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240609T104916Z&X-Amz-Expires=300&X-Amz-Signature=2ee053e99f8071818079e3d9695a37cbebd63ad274eb47a3bf372d86a53eba4a&X-Amz-SignedHeaders=host&actor_id=143675923&key_id=0&repo_id=786423065" width="80%"/>
+
+
 
 # 参考项目
 https://github.com/DDS-Derek/xiaoya-alist <br>
