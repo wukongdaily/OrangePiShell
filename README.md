@@ -29,6 +29,10 @@ sudo orangepi-config
 wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
 
 ```
+### QNAP 威联通docker-compose 搭建小雅全家桶
+```bash
+bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
+```
 
 ### OpenWrt/iStoreOS 软路由系统
 ```bash
