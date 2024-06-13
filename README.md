@@ -23,7 +23,7 @@ sudo orangepi-config
 > 调用命令之前最好先切后到root模式 ubuntu/synology 使用 `sudo -i`<br>
 > debian 使用 `su -` 
 
-### Ubuntu/Debian/Synology等基于Debian的Linux
+### Ubuntu/Debian/Synology 7.2等基于Debian的Linux
 
 ```bash
 wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
@@ -61,7 +61,7 @@ wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh 
 | Ubuntu ✅ | Debian ✅ | Deepin ✅ |
 | OpenWrt ✅ | iStoreOS ✅ | MT-3000 ✅ |
 | NanoPi-R2S ✅ | NanoPi-R4S ✅ | NanoPi-Neo3 ✅ |
-| Synology ✅ | QNAP ✅ |UNRAID ✅   |
+| Synology 7.2✅ | QNAP ✅ |UNRAID ✅   |
 | Raspberrypi ✅ | PVE ✅|Zero3 ✅  |
 
 # 常见问题汇总⬇️⬇️⬇️
