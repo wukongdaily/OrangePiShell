@@ -1,0 +1,20 @@
+services:
+  alist:
+    image: ghcr.io/monlor/xiaoya-alist:latest
+    volumes:
+      - xiaoya:/data
+    ports:
+      - "5678:5678"
+      - "2345:2345"
+      - "2346:2346"
+    env_file:
+      - env
+    restart: unless-stopped
+    networks:
+      - default
+
+networks:
+  default:
+
+volumes:
+  xiaoya:

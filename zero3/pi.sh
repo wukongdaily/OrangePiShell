@@ -31,6 +31,8 @@ menu_options=(
     "安装小雅alist"
     "安装小雅转存清理工具"
     "安装小雅tvbox"
+    "使用docker-compose部署小雅全家桶(建议x86-64设备)"
+    "群晖6.2系统安装docker-compose(x86-64)"
     "修改阿里云盘Token(32位)"
     "修改阿里云盘OpenToken(335位)"
     "修改小雅转存文件夹ID(40位)"
@@ -61,6 +63,10 @@ commands=(
     ["安装小雅tvbox"]="install_xiaoya_tvbox"
     ["安装特斯拉伴侣TeslaMate"]="install_teslamate"
     ["安装内网穿透工具DDNSTO"]="install_ddnsto"
+    ["使用docker-compose部署小雅全家桶(建议x86-64设备)"]="install_xiaoya_emby"
+    ["群晖6.2系统安装docker-compose(x86-64)"]="do_install_docker_compose"
+    
+    
 
 )
 
@@ -72,10 +78,10 @@ update_system_packages() {
     green "Updating system packages..."
     sudo apt update
     sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
-    if ! command -v curl &> /dev/null; then
+    if ! command -v curl &>/dev/null; then
         red "curl is not installed. Installing now..."
         sudo apt install -y curl
-        if command -v curl &> /dev/null; then
+        if command -v curl &>/dev/null; then
             green "curl has been installed successfully."
         else
             echo "Failed to install curl. Please check for errors."
@@ -472,10 +478,11 @@ update_scripts() {
 
 # 安装小雅xiaoya-tvbox
 # 参考 https://har01d.cn/notes/alist-tvbox.html
-install_xiaoya_tvbox(){
+install_xiaoya_tvbox() {
     local host_ip
     host_ip=$(hostname -I | awk '{print $1}')
-    wget -qO xt.sh https://d.har01d.cn/update_xiaoya.sh
+    #wget -qO xt.sh https://d.har01d.cn/update_xiaoya.sh
+    curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya_tvbox.sh -o xt.sh
     sudo chmod +x xt.sh
     sudo ./xt.sh -d /mnt/xiaoya
     green "tvbox 使用的json地址是 http://${host_ip}:4567/sub/0"
@@ -499,7 +506,7 @@ install_teslamate() {
 }
 
 check_docker_compose() {
-    if which docker-compose > /dev/null 2>&1; then
+    if which docker-compose >/dev/null 2>&1; then
         echo "Docker Compose is installed."
         docker-compose --version
     else
@@ -508,10 +515,59 @@ check_docker_compose() {
     fi
 }
 
-# 安装DDNSTO 
-install_ddnsto(){
+# 安装DDNSTO
+install_ddnsto() {
     green "请登录 https://www.ddnsto.com/app/#/devices  在控制台复制 令牌 令牌=token"
     sh -c "$(curl -sSL http://fw.koolcenter.com/binary/ddnsto/linux/install_ddnsto_linux.sh)"
+}
+
+# 安装小雅全家桶
+install_xiaoya_emby(){
+    bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
+}
+
+get_docker_compose_url() {
+    if [ $# -eq 0 ]; then
+        echo "需要提供GitHub releases页面的URL作为参数。"
+        return 1
+    fi
+    local releases_url=$1
+    # 使用curl获取重定向的URL
+    latest_url=$(curl -Ls -o /dev/null -w "%{url_effective}" "$releases_url")
+    # 使用sed从URL中提取tag值,并保留前导字符'v'
+    tag=$(echo $latest_url | sed 's|.*/v|v|')
+    # 检查是否成功获取到tag
+    if [ -z "$tag" ]; then
+        echo "未找到最新的release tag。"
+        return 1
+    fi
+ 
+    platform="docker-compose-linux-x86_64"
+    local repo_path=$(echo "$releases_url" | sed -n 's|https://github.com/\(.*\)/releases/latest|\1|p')
+    if [[ $(curl -s ipinfo.io/country) == "CN" ]]; then
+        docker_compose_download_url="https://cafe.cpolar.cn/wkdaily/docker-compose/raw/branch/main/${platform}"
+    else
+        docker_compose_download_url="https://github.com/${repo_path}/releases/download/${tag}/${platform}"
+    fi
+    echo "$docker_compose_download_url"
+}
+
+# 适配群晖6.2 先行安装 docker-compose
+do_install_docker_compose() {
+    # /usr/local/bin/docker-compose
+    local github_releases_url="https://github.com/docker/compose/releases/latest"
+    local docker_compose_url=$(get_docker_compose_url "$github_releases_url")
+    cyan "最新版docker-compose 地址:$docker_compose_url"
+    cyan "即将下载最新版docker-compose standalone"
+    wget -O /usr/local/bin/docker-compose $docker_compose_url
+    if [ $? -eq 0 ]; then
+        green "docker-compose下载并安装成功,你可以使用啦"
+        chmod +x /usr/local/bin/docker-compose
+    else
+        red "安装失败,请检查网络连接.或者手动下载到 /usr/local/bin/docker-compose 记得赋予执行权限"
+        yellow "刚才使用的地址是:$docker_compose_url"
+        exit 1
+    fi
 }
 
 show_menu() {
@@ -519,7 +575,7 @@ show_menu() {
     greenline "————————————————————————————————————————————————————"
     echo '
     ***********  DIY docker轻服务器  ***************
-    环境:orange pi zero 3 (Ubuntu/debian)
+    环境: (Ubuntu/Debian/synology etc)
     脚本作用:快速部署一个省电无感的小透明轻服务器
             --- Made by wukong with YOU ---'
     echo -e "    https://github.com/wukongdaily/OrangePiShell"

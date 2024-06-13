@@ -72,7 +72,7 @@ update_scripts() {
 # 安装小雅xiaoya-tvbox
 # 参考 https://har01d.cn/notes/alist-tvbox.html
 install_xiaoya_tvbox() {
-    wget -qO xt.sh https://d.har01d.cn/update_xiaoya.sh
+    curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya_tvbox.sh -o xt.sh
     chmod +x xt.sh
     ./xt.sh -d /etc/xiaoya
     green "tvbox 使用的json地址是 http://${host_ip}:4567/sub/0"
@@ -181,6 +181,16 @@ install_teslamate() {
     fi
 }
 
+install_xiaoya_allinone() {
+    if which docker-compose >/dev/null 2>&1; then
+        bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)"
+    else
+        red "Docker Compose 还未安装,正在尝试安装..."
+        green "安装成功后,请您再次执行该选项"
+        do_install_docker_compose
+    fi
+}
+
 # *************************************************************
 while true; do
     #*************************************
@@ -199,7 +209,9 @@ while true; do
     echo " 3. 安装AList docker版"
     echo " 4. 安装1panel面板docker版"
     echo " 5. 安装特斯拉伴侣TeslaMate"
-    echo " 6. 更新脚本"
+    echo " 6. 安装docker-compose"
+    echo " 7. 安装小雅全家桶Emby|Jellyfin"
+    echo " U. 更新脚本"
     echo
     echo " Q. 退出本程序"
     echo
@@ -223,6 +235,12 @@ while true; do
         install_teslamate
         ;;
     6)
+        do_install_docker_compose
+        ;;
+    7)
+        install_xiaoya_allinone
+        ;;
+    u | U)
         update_scripts
         ;;
     q | Q)
