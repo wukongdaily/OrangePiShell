@@ -43,7 +43,9 @@ wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh 
 
 
 
-
+### 扩展知识
+> 如何快速获得docker离线镜像<br>
+https://github.com/wukongdaily/DockerTarBuilder
 
 ### 网盘
 - docker 离线包：https://wwl.lanzouq.com/s/zero3  密码:3c60
