@@ -108,6 +108,66 @@ install_1panel_on_openwrt() {
 
 }
 
+# 安装istoreOS版本1panel
+install_istorepanel() {
+    green "请务必确保您使用的是iStoreOS系统 回车或输入y来确定"
+    yellow "并且移除了之前安装过的通用版1panel容器(y|n)"
+    read -r answer
+    if [ "$answer" = "y" ] || [ -z "$answer" ]; then
+        green "先确保安装了iStore增强"
+        is-opkg install app-meta-istoreenhance
+        green "正在安装1panel的iStoreOS版本..."
+        rm -rf /etc/config/istorepanel
+        is-opkg remove app-meta-istorepanel
+        is-opkg install app-meta-istorepanel
+        green "正在安装istore版1panel..."
+        # 执行 quickstart showLanIP 命令并提取结果
+        output=$(quickstart showLanIP)
+        lan_ip=$(echo $output | awk -F 'lanIp= ' '{print $2}')
+        # 获取 Docker 根目录路径
+        docker_root_dir=$(docker info 2>/dev/null | grep 'Docker Root Dir' | awk -F ': ' '{print $2}')
+        # 检查是否成功获取到路径
+        if [ -z "$docker_root_dir" ]; then
+            echo "Failed to get Docker root directory."
+            exit 1
+        fi
+        # 去除末尾的 '/docker' 部分
+        config_root_dir=$(dirname "$docker_root_dir")
+        config_path="${config_root_dir}/Configs/1Panel"
+        green "是否将配置文件存放在$config_path  请输入y或回车来确定 n退出"
+        read -r isConfig
+        if [ "$isConfig" = "y" ] || [ -z "$isConfig" ]; then
+            uci set istorepanel.@main[0].config_path=$config_path
+            uci commit istorepanel
+            "/usr/libexec/istorec/istorepanel.sh" install
+            greenline "———————————————安装完成————————————————————————"
+            countdown
+            echo
+            cyan "http://$lan_ip/cgi-bin/luci/admin/services/istorepanel"
+            green "跳转到上述页面, 打开1panel或修改参数"
+            cyan "http://$lan_ip:10086/entrance"
+            green "或者跳转到上述页面, 直接打开1panel面板"
+        else
+            greenline "————————————————————————————————————————————————————"
+            green "http://$lan_ip/cgi-bin/luci/admin/services/istorepanel"
+            green "跳转到上述页面,手动点击 【安装】按钮 来启用1panel"
+        fi
+    else
+        yellow "您选择了不安装"
+    fi
+}
+
+# 倒计时15秒
+countdown() {
+    local seconds=15
+
+    while [ $seconds -gt 0 ]; do
+        printf "\r请耐心等待: %2d 秒后再访问" $seconds
+        sleep 1
+        seconds=$((seconds - 1))
+    done
+}
+
 #根据release地址和命名前缀获取apk地址
 get_docker_compose_url() {
     if [ $# -eq 0 ]; then
@@ -211,6 +271,7 @@ while true; do
     echo " 5. 安装特斯拉伴侣TeslaMate"
     echo " 6. 安装docker-compose"
     echo " 7. 安装小雅全家桶Emby|Jellyfin"
+    echo " 8. 安装1panel(iStoreOS版)"
     echo " U. 更新脚本"
     echo
     echo " Q. 退出本程序"
@@ -239,6 +300,9 @@ while true; do
         ;;
     7)
         install_xiaoya_allinone
+        ;;
+    8)
+        install_istorepanel
         ;;
     u | U)
         update_scripts
