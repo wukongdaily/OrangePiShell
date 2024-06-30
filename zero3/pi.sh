@@ -251,12 +251,7 @@ install_1panel_on_linux() {
     if command -v 1pctl &>/dev/null; then
         echo '{
   "registry-mirrors": [
-    "https://docker.mirrors.ustc.edu.cn",
-    "https://hub-mirror.c.163.com",
-    "https://docker.m.daocloud.io",
-    "https://ghcr.io",
-    "https://mirror.baidubce.com",
-    "https://docker.nju.edu.cn"
+    "https://docker.1panel.live"
   ]
 }' | sudo tee /etc/docker/daemon.json >/dev/null
         sudo /etc/init.d/docker restart
