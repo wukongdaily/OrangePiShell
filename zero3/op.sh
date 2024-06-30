@@ -131,10 +131,16 @@ install_istorepanel() {
             echo "Failed to get Docker root directory."
             exit 1
         fi
+        if ! is_available_space_greater_than_2GB "$docker_root_dir"; then
+            red "检测到docker空间不足2GB 请在iStoreOS首页迁移docker到更大的分区"
+            exit 1
+        fi
         # 去除末尾的 '/docker' 部分
         config_root_dir=$(dirname "$docker_root_dir")
         config_path="${config_root_dir}/Configs/1Panel"
-        green "是否将配置文件存放在$config_path  请输入y或回车来确定 n退出"
+        green "是否将配置文件存放在下面的目录"
+        yellow "$config_path"
+        cyan "请回车继续或者输入n退出"
         read -r isConfig
         if [ "$isConfig" = "y" ] || [ -z "$isConfig" ]; then
             uci set istorepanel.@main[0].config_path=$config_path
@@ -154,6 +160,17 @@ install_istorepanel() {
         fi
     else
         yellow "您选择了不安装"
+    fi
+}
+
+is_available_space_greater_than_2GB() {
+    local dir_path=$1
+    local available_space_kb=$(df -k "$dir_path" | awk 'NR==2 {print $4}')
+    local available_space_gb=$((available_space_kb / 1024 / 1024))
+    if [ "$available_space_gb" -gt 2 ]; then
+        return 0 
+    else
+        return 1 
     fi
 }
 
@@ -267,12 +284,12 @@ while true; do
     cyan " 1. 安装小雅tvbox"
     echo " 2. 安装盒子助手docker版"
     echo " 3. 安装AList docker版"
-    echo " 4. 安装1panel面板docker版"
+    cyan " 4. 安装1panel(iStoreOS版)"
     echo " 5. 安装特斯拉伴侣TeslaMate"
     echo " 6. 安装docker-compose"
     echo " 7. 安装小雅全家桶Emby|Jellyfin"
-    echo " 8. 安装1panel(iStoreOS版)"
-    echo " U. 更新脚本"
+    echo " 8. 安装1panel面板通用版"
+    cyan " U. 更新脚本"
     echo
     echo " Q. 退出本程序"
     echo
@@ -290,7 +307,7 @@ while true; do
         install_alist
         ;;
     4)
-        install_1panel_on_openwrt
+        install_istorepanel
         ;;
     5)
         install_teslamate
@@ -302,7 +319,7 @@ while true; do
         install_xiaoya_allinone
         ;;
     8)
-        install_istorepanel
+        install_1panel_on_openwrt
         ;;
     u | U)
         update_scripts
