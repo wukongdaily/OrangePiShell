@@ -95,6 +95,7 @@ install_1panel_on_openwrt() {
         --network host \
         -v /var/run/docker.sock:/var/run/docker.sock \
         -v /www/data/1panel-data:/opt/1panel_data \
+        -v /:/ahost \
         -e TZ=Asia/Shanghai \
         moelin/1panel:latest
 
@@ -145,7 +146,9 @@ install_istorepanel() {
         if [ "$isConfig" = "y" ] || [ -z "$isConfig" ]; then
             uci set istorepanel.@main[0].config_path=$config_path
             uci commit istorepanel
-            "/usr/libexec/istorec/istorepanel.sh" install
+            wget -qO /tmp/istorepanel.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/istorepanel.sh
+            chmod +x /tmp/istorepanel.sh
+            "/tmp/istorepanel.sh" install 
             greenline "———————————————安装完成————————————————————————"
             countdown
             echo
