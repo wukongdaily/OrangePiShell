@@ -65,7 +65,7 @@ https://github.com/wukongdaily/DockerTarBuilder
 | OpenWrt ✅ | iStoreOS ✅ | MT-3000 ✅ |
 | NanoPi-R2S ✅ | NanoPi-R4S ✅ | NanoPi-Neo3 ✅ |
 | Synology 7.2✅ | QNAP ✅ |UNRAID ✅   |
-| Raspberrypi ✅ | PVE ✅|Zero3 ✅  |
+| Raspberrypi ✅ | Armbian ✅|Zero3 ✅  |
 
 # 常见问题汇总⬇️⬇️⬇️
 [filebrowser 如何设置自定义端口](https://github.com/wukongdaily/OrangePiShell/wiki/filebrowser-%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E7%AB%AF%E5%8F%A3)
