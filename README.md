@@ -113,5 +113,8 @@ https://github.com/power721/alist-tvbox/blob/master/doc/README_zh.md
 # 参考项目
 https://github.com/DDS-Derek/xiaoya-alist <br>
 https://har01d.cn/#/notes/alist-tvbox <br>
-> docker-compose 全家桶 <br>
-https://github.com/monlor/docker-xiaoya
+> docker-compose 方式部署全家桶 <br>
+https://github.com/monlor/docker-xiaoya<br>
+
+> 国内如何安装docker<br>
+https://github.com/SuperManito/LinuxMirrors
