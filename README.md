@@ -24,21 +24,22 @@ sudo orangepi-config
 > 调用命令之前最好先切后到root模式 ubuntu/synology 使用 `sudo -i`<br>
 > debian 使用 `su -` 
 
-### Ubuntu/Debian/Synology 7.2等基于Debian的Linux
+### Armbian/Ubuntu/Debian/Synology 7.2等基于Debian的Linux
 
 ```bash
 wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
 
-```
-### QNAP 威联通docker-compose 搭建小雅全家桶
-```bash
-bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
 ```
 
 ### OpenWrt/iStoreOS 软路由系统
 ```bash
 wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
 
+```
+
+### QNAP 威联通docker-compose 搭建小雅全家桶
+```bash
+bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
 ```
 
 
