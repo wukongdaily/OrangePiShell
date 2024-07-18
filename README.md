@@ -118,4 +118,8 @@ https://har01d.cn/#/notes/alist-tvbox <br>
 https://github.com/monlor/docker-xiaoya<br>
 
 > 国内如何安装docker<br>
-https://github.com/SuperManito/LinuxMirrors
+https://github.com/SuperManito/LinuxMirrors <br>
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=wukongdaily/OrangePiShell&type=Date)](https://star-history.com/#wukongdaily/OrangePiShell&Date)
