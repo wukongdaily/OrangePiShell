@@ -8,15 +8,22 @@
 `ssh orangepi@192.168.66.106`
 - 默认用户名:`orangepi`
 - 默认密码:`orangepi` <br>
-#### 准备：首次使用 如果时间不正确可以先更新软件 然后设置时区
+
+## ❤️准备：首次使用 如果时间不正确可以先检查时钟时间,举例说明
 ```
-# 举例 可以先手动设置好 当前时间 比如 
-sudo date -s "2024-05-11 07:45:00"
-# 更新apt
-sudo apt update
-# 设置时区Asia/Shanghai
-sudo orangepi-config
+root@orangepizero3:~# hwclock -r
+1970-01-02 08:03:46.251744+08:00
+root@orangepizero3:~# date -s "2024-08-13 08:54:00"
+Tue Aug 13 08:54:00 CST 2024
+root@orangepizero3:~# hwclock -w
+root@orangepizero3:~# hwclock -r
+2024-08-13 08:54:07.738915+08:00
+root@orangepizero3:~#
+# 上述代码我们分别查询了时钟时间,发现是1970年是错的,接着我们手动设置了当前时间,然后保存时钟时间。再次读取时钟时间就正确了。
+此时,你在执行wget等下载操作,就能成功下载脚本了。
+
 ```
+
 
 
 <img src="https://github.com/wukongdaily/OrangePiShell/assets/143675923/0d9e5421-53b4-4a63-b7a1-025ab977eed5" width="40%" />
