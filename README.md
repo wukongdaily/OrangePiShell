@@ -1,6 +1,7 @@
 <img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black"> 
 
 ### 更新日志的位置：https://github.com/wukongdaily/OrangePiShell/releases/tag/v1.0
+### 一键安装KVM虚拟机脚本:https://github.com/wukongdaily/e20c
 ### 镜像仓库:https://cafe.cpolar.cn/wkdaily/zero3
 ### TVBOX APK 下载地址:https://wkdaily.cpolar.cn/archives/free
 ### 通过ssh 连接到zero3,举例
