@@ -2,7 +2,6 @@
 
 ### 更新日志的位置：https://github.com/wukongdaily/OrangePiShell/releases/tag/v1.0
 ### debian/飞牛OS 一键安装KVM虚拟机脚本:https://github.com/wukongdaily/OneKVM
-### 镜像仓库:https://cafe.cpolar.cn/wkdaily/zero3
 ### TVBOX APK 下载地址:https://wkdaily.cpolar.cn/archives/free
 ### 通过ssh 连接到zero3,举例
 使用主机名连接ssh `ssh orangepi@orangepizero3.lan` <br>或使用ip地址连接ssh
