@@ -1,4 +1,6 @@
 <img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black"> 
+<img src="https://badges.toozhao.com/badges/01JDKPTDXFQYYWHEPS32QSD4XT/orange.svg" />
+
 
 ### 更新日志的位置：https://github.com/wukongdaily/OrangePiShell/releases/tag/v1.0
 ### debian/飞牛OS 一键安装KVM虚拟机脚本:https://github.com/wukongdaily/OneKVM
