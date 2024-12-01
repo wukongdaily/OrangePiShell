@@ -23,10 +23,11 @@ declare -a menu_options
 declare -A commands
 menu_options=(
     "更新系统软件包"
+    "安装docker"
     "安装并启动文件管理器FileBrowser"
-    "设置文件管理器开机自启动"
     "安装1panel面板管理工具"
     "查看1panel用户信息"
+    "Sun-Panel导航面板"
     "安装alist"
     "安装小雅alist"
     "安装小雅转存清理工具"
@@ -46,6 +47,7 @@ menu_options=(
 
 commands=(
     ["更新系统软件包"]="update_system_packages"
+    ["安装docker"]="install_docker"
     ["安装并启动文件管理器FileBrowser"]="install_filemanager"
     ["设置文件管理器开机自启动"]="start_filemanager"
     ["安装1panel面板管理工具"]="install_1panel_on_linux"
@@ -65,8 +67,7 @@ commands=(
     ["安装内网穿透工具DDNSTO"]="install_ddnsto"
     ["使用docker-compose部署小雅全家桶(建议x86-64设备)"]="install_xiaoya_emby"
     ["群晖6.2系统安装docker-compose(x86-64)"]="do_install_docker_compose"
-    
-    
+    ["Sun-Panel导航面板"]="install_sun_panel"
 
 )
 
@@ -89,6 +90,11 @@ update_system_packages() {
     else
         echo "curl is already installed."
     fi
+}
+
+# 安装docker
+install_docker() {
+    bash <(curl -sSL https://linuxmirrors.cn/docker.sh)
 }
 
 # 安装文件管理器
@@ -168,32 +174,29 @@ install_filemanager() {
         green "Aborted, unsupported or unknown OS: $uname"
         return 6
     fi
-    green "Downloading File Browser for $filemanager_os/$filemanager_arch..."
+    green "正在下载文件管理器($filemanager_os/$filemanager_arch) 请稍等..."
     if type -p curl >/dev/null 2>&1; then
-        net_getter="curl -fsSL"
+        net_getter="curl -fSL -#"
     elif type -p wget >/dev/null 2>&1; then
-        net_getter="wget -qO-"
+        net_getter="wget -O-"
     else
         green "Aborted, could not find curl or wget"
         return 7
     fi
     filemanager_file="${filemanager_os}-$filemanager_arch-filebrowser$filemanager_dl_ext"
-    filemanager_url="https://cafe.cpolar.cn/wkdaily/filebrowser/raw/branch/main/$filemanager_file"
-    echo "$filemanager_url"
+    filemanager_url="https://wkrepo.vip.cpolar.cn/res/$filemanager_file"
 
     # Use $PREFIX for compatibility with Termux on Android
     rm -rf "$PREFIX/tmp/$filemanager_file"
 
     ${net_getter} "$filemanager_url" >"$PREFIX/tmp/$filemanager_file"
 
-    green "Extracting..."
+    green "下载完成 正在解压..."
     case "$filemanager_file" in
     *.zip) unzip -o "$PREFIX/tmp/$filemanager_file" "$filemanager_bin" -d "$PREFIX/tmp/" ;;
     *.tar.gz) tar -xzf "$PREFIX/tmp/$filemanager_file" -C "$PREFIX/tmp/" "$filemanager_bin" ;;
     esac
     chmod +x "$PREFIX/tmp/$filemanager_bin"
-
-    green "Putting filemanager in $install_path (may require password)"
     $sudo_cmd mv "$PREFIX/tmp/$filemanager_bin" "$install_path/$filemanager_bin"
     if setcap_cmd=$(PATH+=$PATH:/sbin type -p setcap); then
         $sudo_cmd $setcap_cmd cap_net_bind_service=+ep "$install_path/$filemanager_bin"
@@ -201,9 +204,9 @@ install_filemanager() {
     $sudo_cmd rm -- "$PREFIX/tmp/$filemanager_file"
 
     if type -p $filemanager_bin >/dev/null 2>&1; then
-        green "Successfully installed"
-        green "安装成功,现在您可以执行第3项开启文件管理并设置自启动"
+        light_magenta "不依赖于docker的 文件管理器安装成功"
         trap ERR
+        start_filemanager
         return 0
     else
         red "Something went wrong, File Browser is not in your path"
@@ -220,11 +223,32 @@ start_filemanager() {
         return 1
     fi
 
+    # Add configuration file generation and editing
+    $sudo_cmd mkdir -p /etc/filebrowser
+    $sudo_cmd touch /etc/filebrowser/.filebrowser.json
+    $sudo_cmd chown $(id -u):$(id -g) /etc/filebrowser/.filebrowser.json
+
+    # Set the desired port
+    desired_port="38080"
+    cat >/etc/filebrowser/.filebrowser.json <<EOF
+{
+    "port": "$desired_port",
+    "root": "/etc/filebrowser",
+    "database": "/etc/filebrowser/filebrowser.db",
+    "auth": {
+        "username": "admin",
+        "password": "admin"
+    }
+}
+EOF
+
+    green "设置文件管理器的端口为: $desired_port"
+
     # 启动 filebrowser 文件管理器
-    echo "启动 filebrowser 文件管理器..."
+    green "启动 filebrowser 文件管理器..."
 
     # 使用 nohup 和输出重定向，记录启动日志到 filebrowser.log 文件中
-    nohup sudo filebrowser -r / --address 0.0.0.0 --port 8080 >filebrowser.log 2>&1 &
+    nohup sudo filebrowser -r / --address 0.0.0.0 --port $desired_port >filebrowser.log 2>&1 &
 
     # 检查 filebrowser 是否成功启动
     if [ $? -ne 0 ]; then
@@ -233,17 +257,48 @@ start_filemanager() {
     fi
     local host_ip
     host_ip=$(hostname -I | awk '{print $1}')
-    green "filebrowser 文件管理器已启动，可以通过 http://${host_ip}:8080 访问"
+    green "filebrowser 文件管理器已启动，可以通过 http://${host_ip}:${desired_port} 访问"
     green "登录用户名：admin"
     green "默认密码：admin（请尽快修改密码）"
-    sudo wget -O /etc/systemd/system/filebrowser.service "https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/filebrowser.service"
+    # 创建 Systemd 服务文件
+    cat >/etc/systemd/system/filebrowser.service <<EOF
+[Unit]
+Description=File Browser Service
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/filebrowser -r / --address 0.0.0.0 --port ${desired_port}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
     sudo chmod +x /etc/systemd/system/filebrowser.service
     sudo systemctl daemon-reload              # 重新加载systemd配置
     sudo systemctl start filebrowser.service  # 启动服务
     sudo systemctl enable filebrowser.service # 设置开机启动
+    sudo systemctl restart NetworkManager     # 重启网络 保证hostname生效
     yellow "已设置文件管理器开机自启动,下次开机可直接访问文件管理器"
-}
 
+    SCRIPT_PATH="/usr/trim/bin/show_startup_info.sh"
+    # 判断脚本是否存在
+    if [ ! -f "$SCRIPT_PATH" ]; then
+        return 1
+    fi
+    HOST_NAME=$(hostname)
+    cp "$SCRIPT_PATH" "${SCRIPT_PATH}.bak"
+    # 在飞牛OS开机命令行界面插入Filebrowser地址和端口信息
+    INSERT_INFO="Filebrowser Web console: http://$HOST_NAME:$desired_port or http://${host_ip}:${desired_port}\n"
+    sed -i "/^Filebrowser Web console/d" "$SCRIPT_PATH"
+    sed -i "/INFO_CONTENT=/a $INSERT_INFO" "$SCRIPT_PATH"
+    light_magenta "文件管理器的访问地址和端口 已追加到飞牛OS开机命令行界面 预览如下"
+    bash "$SCRIPT_PATH"
+    cat /etc/issue
+
+}
 # 安装1panel面板
 install_1panel_on_linux() {
     curl -sSL https://resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh && sudo bash quick_start.sh
@@ -517,8 +572,8 @@ install_ddnsto() {
 }
 
 # 安装小雅全家桶
-install_xiaoya_emby(){
-    bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
+install_xiaoya_emby() {
+    bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)"
 }
 
 get_docker_compose_url() {
@@ -536,7 +591,7 @@ get_docker_compose_url() {
         echo "未找到最新的release tag。"
         return 1
     fi
- 
+
     platform="docker-compose-linux-x86_64"
     local repo_path=$(echo "$releases_url" | sed -n 's|https://github.com/\(.*\)/releases/latest|\1|p')
     if [[ $(curl -s ipinfo.io/country) == "CN" ]]; then
@@ -565,6 +620,23 @@ do_install_docker_compose() {
     fi
 }
 
+install_sun_panel() {
+    docker run -d --restart=always -p 3002:3002 \
+        -v ~/docker_data/sun-panel/conf:/app/conf \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        --name sun-panel \
+        hslr/sun-panel:latest
+    if ! docker ps | grep -q "hslr/sun-panel"; then
+        echo "Error: sun-panel 未运行成功"
+    else
+        local host_ip
+        host_ip=$(hostname -I | awk '{print $1}')
+        green "sun-panel已启动，可以通过 http://${host_ip}:3002 验证是否安装成功"
+        green "默认用户名: admin@sun.cc"
+        green "默认密码: 12345678"
+    fi
+}
+
 show_menu() {
     clear
     greenline "————————————————————————————————————————————————————"
@@ -577,8 +649,8 @@ show_menu() {
     greenline "————————————————————————————————————————————————————"
     echo "请选择操作："
 
-    # 特殊处理的项数组
-    special_items=("安装小雅tvbox" "安装特斯拉伴侣TeslaMate")
+    # 高亮菜单项
+    special_items=("安装docker" "安装1panel面板管理工具" "安装小雅tvbox" "安装特斯拉伴侣TeslaMate" "安装盒子助手docker版" "安装内网穿透工具Cpolar" "Sun-Panel导航面板")
     for i in "${!menu_options[@]}"; do
         if [[ " ${special_items[*]} " =~ " ${menu_options[i]} " ]]; then
             # 如果当前项在特殊处理项数组中，使用特殊颜色
