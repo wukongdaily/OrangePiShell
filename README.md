@@ -1,14 +1,14 @@
-<img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black">  <img src="https://badges.toozhao.com/badges/01JDKPTDXFQYYWHEPS32QSD4XT/orange.svg" /> [![Bilibili](https://img.shields.io/badge/Bilibili-123456?logo=bilibili&logoColor=fff&labelColor=fb7299)](https://www.bilibili.com/video/BV1ND421T7nB) [![YouTube](https://img.shields.io/badge/YouTube-123456?logo=youtube&labelColor=ff0000)](https://youtu.be/Ym4d7uCo9eg)
+<img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/OrangePiShell?labelColor=%23FF4500&color=black">  <img src="https://badges.toozhao.com/badges/01JDKPTDXFQYYWHEPS32QSD4XT/orange.svg" /> [![Bilibili](https://img.shields.io/badge/Bilibili-123456?logo=bilibili&logoColor=fff&labelColor=fb7299)](https://www.bilibili.com/video/BV1ND421T7nB) [![YouTube](https://img.shields.io/badge/YouTube-123456?logo=youtube&labelColor=ff0000)](https://youtu.be/Ym4d7uCo9eg)
 
 ### Armbian/Ubuntu/Debian/Synology 7.2等基于Debian的Linux
 
 ```bash
-wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
+wget -qO pi.sh https://cafe.vip.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
 
 ```
 ### OpenWrt/iStoreOS 软路由系统
 ```bash
-wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
+wget -qO op.sh https://cafe.vip.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
 
 ```
 ### 其它项目：[RunFilesBuilder——为iStoreOS制作run文件](https://github.com/wukongdaily/RunFilesBuilder)
@@ -49,7 +49,7 @@ root@orangepizero3:~#
 
 ### QNAP 威联通docker-compose 搭建小雅全家桶
 ```bash
-bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
+bash -c "$(curl -fsSL https://cafe.vip.cpolar.top/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
 ```
 
 
