@@ -1,8 +1,19 @@
 <img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/diy-nas-onescript?labelColor=%23FF4500&color=black">  <img src="https://badges.toozhao.com/badges/01JDKPTDXFQYYWHEPS32QSD4XT/orange.svg" /> [![Bilibili](https://img.shields.io/badge/Bilibili-123456?logo=bilibili&logoColor=fff&labelColor=fb7299)](https://www.bilibili.com/video/BV1ND421T7nB) [![YouTube](https://img.shields.io/badge/YouTube-123456?logo=youtube&labelColor=ff0000)](https://youtu.be/Ym4d7uCo9eg)
 
-### 更新日志的位置：https://github.com/wukongdaily/OrangePiShell/releases/tag/v1.0
+### Armbian/Ubuntu/Debian/Synology 7.2等基于Debian的Linux
+
+```bash
+wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
+
+```
+### OpenWrt/iStoreOS 软路由系统
+```bash
+wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
+
+```
+### 其它项目：[RunFilesBuilder——为iStoreOS制作run文件](https://github.com/wukongdaily/RunFilesBuilder)
 ### debian/飞牛OS 一键安装KVM虚拟机脚本:https://github.com/wukongdaily/OneKVM
-### TVBOX APK 下载地址:https://wkdaily.cpolar.cn/archives/free
+### TVBOX APK 下载地址:https://wkdaily.cpolar.top/archives/free
 ### 通过ssh 连接到zero3,举例
 使用主机名连接ssh `ssh orangepi@orangepizero3.lan` <br>或使用ip地址连接ssh
 `ssh orangepi@192.168.66.106`
@@ -32,18 +43,9 @@ root@orangepizero3:~#
 > 调用命令之前最好先切后到root模式 ubuntu/synology 使用 `sudo -i`<br>
 > debian 使用 `su -` 
 
-### Armbian/Ubuntu/Debian/Synology 7.2等基于Debian的Linux
 
-```bash
-wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
 
-```
 
-### OpenWrt/iStoreOS 软路由系统
-```bash
-wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
-
-```
 
 ### QNAP 威联通docker-compose 搭建小雅全家桶
 ```bash
