@@ -3,12 +3,12 @@
 ### Armbian/Ubuntu/Debian/Synology 7.2等基于Debian的Linux
 
 ```bash
-wget -qO pi.sh https://cafe.vip.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
+wget -qO pi.sh https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
 
 ```
 ### OpenWrt/iStoreOS 软路由系统
 ```bash
-wget -qO op.sh https://cafe.vip.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
+wget -qO op.sh https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
 
 ```
 ### 其它项目：[RunFilesBuilder——为iStoreOS制作run文件](https://github.com/wukongdaily/RunFilesBuilder)
@@ -50,7 +50,7 @@ root@orangepizero3:~#
 
 ### QNAP 威联通docker-compose 搭建小雅全家桶
 ```bash
-bash -c "$(curl -fsSL https://cafe.vip.cpolar.top/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
+bash -c "$(curl -fsSL https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
 ```
 
 
