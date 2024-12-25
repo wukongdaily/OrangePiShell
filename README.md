@@ -84,9 +84,9 @@ https://github.com/wukongdaily/DockerTarBuilder
 
 [常见问题总结（持续更新中](https://github.com/wukongdaily/OrangePiShell/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
-[常见问题总结（持续更新中）](https://cafe.cpolar.cn/wkdaily/zero3/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
+[常见问题总结（持续更新中）](https://cafe.cpolar.top/wkdaily/zero3/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
 # 如何定时重启小雅？
-[使用1panel 添加定时任务即可](https://cafe.cpolar.cn/wkdaily/zero3/wiki/%E5%A6%82%E4%BD%95%E5%AE%9A%E6%97%B6%E9%87%8D%E5%90%AF%E5%B0%8F%E9%9B%85)
+[使用1panel 添加定时任务即可](https://cafe.cpolar.top/wkdaily/zero3/wiki/%E5%A6%82%E4%BD%95%E5%AE%9A%E6%97%B6%E9%87%8D%E5%90%AF%E5%B0%8F%E9%9B%85)
 
 # 小雅alsit 和 小雅tvbox 有啥区别吗？
 ```
