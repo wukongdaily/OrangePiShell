@@ -11,10 +11,11 @@ wget -qO pi.sh https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/pi.sh
 wget -qO op.sh https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
 
 ```
-### 其它项目：[RunFilesBuilder——为iStoreOS制作run文件](https://github.com/wukongdaily/RunFilesBuilder)
+### 其它项目：[RunFilesBuilder——为iStoreOS/OpenWrt制作run文件](https://github.com/wukongdaily/RunFilesBuilder)
 ### 其它项目：[DockerTarBuilder 利用github action 轻松获得docker离线包](https://github.com/wukongdaily/DockerTarBuilder)
-### debian/飞牛OS [一键安装KVM虚拟机脚本:ARM机型也玩虚拟机](https://github.com/wukongdaily/OneKVM)
-### [TVBOX APK 下载地址](https://tvhelper.cpolar.top/)
+### 其它项目：[一键安装KVM虚拟机脚本:ARM机型也玩虚拟机](https://github.com/wukongdaily/OneKVM)
+### 其它项目：[新项目armbian/openwrt安装器ISO 适合所有虚拟机和物理机](https://github.com/wukongdaily/armbian-installer)
+### [导航站](https://tvhelper.cpolar.top/) https://tvhelper.cpolar.top/
 ### 通过ssh 连接到zero3,举例
 使用主机名连接ssh `ssh orangepi@orangepizero3.lan` <br>或使用ip地址连接ssh
 `ssh orangepi@192.168.66.106`
