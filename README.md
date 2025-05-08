@@ -137,3 +137,7 @@ https://github.com/SuperManito/LinuxMirrors <br>
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=wukongdaily/OrangePiShell&type=Date)](https://star-history.com/#wukongdaily/OrangePiShell&Date)
+
+## ❤️赞助作者 ⬇️⬇️
+
+[![点击这里赞助我](https://img.shields.io/badge/点击这里赞助我-支持作者的项目-orange?logo=github)](https://wkdaily.cpolar.top/01)
