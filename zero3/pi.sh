@@ -10,6 +10,7 @@ light_magenta() { echo -e "\033[95m\033[01m[NOTICE] $1\033[0m"; }
 highlight() { echo -e "\033[32m\033[01m$1\033[0m"; }
 cyan() { echo -e "\033[38;2;0;255;255m$1\033[0m"; }
 
+
 # 检查是否以 root 用户身份运行
 if [ "$(id -u)" -ne 0 ]; then
     green "注意！输入密码过程不显示*号属于正常现象"
@@ -18,6 +19,11 @@ if [ "$(id -u)" -ne 0 ]; then
     sudo -E "$0" "$@"
     exit $?
 fi
+
+# 设置全局快捷键p
+cp -f "$0" /usr/local/bin/p
+chmod +x /usr/local/bin/p
+
 
 declare -a menu_options
 declare -A commands
@@ -28,7 +34,6 @@ menu_options=(
     "安装1panel面板管理工具"
     "查看1panel用户信息"
     "Sun-Panel导航面板"
-    "安装alist"
     "安装小雅alist"
     "安装小雅转存清理工具"
     "安装小雅tvbox"
@@ -184,7 +189,8 @@ install_filemanager() {
         return 7
     fi
     filemanager_file="${filemanager_os}-$filemanager_arch-filebrowser$filemanager_dl_ext"
-    filemanager_url="https://wkrepo.vip.cpolar.cn/res/$filemanager_file"
+    filemanager_url="https://cafe.cpolar.top/wkdaily/filebrowser/raw/branch/main/$filemanager_file"
+    
 
     # Use $PREFIX for compatibility with Termux on Android
     rm -rf "$PREFIX/tmp/$filemanager_file"
@@ -352,7 +358,7 @@ install_xiaoya_alist() {
         阿里云盘转存目录folder id:   https://www.aliyundrive.com/s/rP9gP3h9asE
         '
     # 调用修改后的脚本
-    bash -c "$(curl https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya.sh)"
+    bash -c "$(curl https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya.sh)"
     # 检查xiaoyaliu/alist 是否运行，如果运行了 则提示下面的信息，否则退出
     if ! docker ps | grep -q "xiaoyaliu/alist"; then
         echo "Error: xiaoyaliu/alist Docker 容器未运行"
@@ -520,7 +526,7 @@ install_casaos() {
 
 # 更新自己
 update_scripts() {
-    wget -O pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
+    wget -O pi.sh https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh
     echo "脚本已更新并保存在当前目录 pi.sh,现在将执行新脚本。"
     ./pi.sh
     exit 0
@@ -532,7 +538,7 @@ install_xiaoya_tvbox() {
     local host_ip
     host_ip=$(hostname -I | awk '{print $1}')
     #wget -qO xt.sh https://d.har01d.cn/update_xiaoya.sh
-    curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya_tvbox.sh -o xt.sh
+    curl -fsSL https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya_tvbox.sh -o xt.sh
     sudo chmod +x xt.sh
     sudo ./xt.sh -d /mnt/xiaoya
     green "tvbox 使用的json地址是 http://${host_ip}:4567/sub/0"
@@ -550,7 +556,7 @@ install_xiaoya_tvbox() {
 install_teslamate() {
     check_docker_compose
     sudo mkdir -p /opt/teslamate/import
-    wget -O /opt/teslamate/docker-compose.yml https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/teslamate/docker-compose.yml
+    wget -O /opt/teslamate/docker-compose.yml https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/teslamate/docker-compose.yml
     cd /opt/teslamate
     sudo docker-compose up -d
 }
@@ -573,7 +579,7 @@ install_ddnsto() {
 
 # 安装小雅全家桶
 install_xiaoya_emby() {
-    bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)"
+    bash -c "$(curl -fsSL https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)"
 }
 
 get_docker_compose_url() {
@@ -595,7 +601,7 @@ get_docker_compose_url() {
     platform="docker-compose-linux-x86_64"
     local repo_path=$(echo "$releases_url" | sed -n 's|https://github.com/\(.*\)/releases/latest|\1|p')
     if [[ $(curl -s ipinfo.io/country) == "CN" ]]; then
-        docker_compose_download_url="https://cafe.cpolar.cn/wkdaily/docker-compose/raw/branch/main/${platform}"
+        docker_compose_download_url="https://cafe.cpolar.top/wkdaily/docker-compose/raw/branch/main/${platform}"
     else
         docker_compose_download_url="https://github.com/${repo_path}/releases/download/${tag}/${platform}"
     fi
@@ -638,15 +644,16 @@ install_sun_panel() {
 }
 
 show_menu() {
+
     clear
     greenline "————————————————————————————————————————————————————"
     echo '
     ***********  DIY docker轻服务器  ***************
     环境: (Ubuntu/Debian/synology etc)
-    脚本作用:快速部署一个省电无感的小透明轻服务器
-            --- Made by wukong with YOU ---'
+    脚本作用:快速部署一个省电无感的小透明轻服务器'
     echo -e "    https://github.com/wukongdaily/OrangePiShell"
     greenline "————————————————————————————————————————————————————"
+    yellow "再次运行输入 p 即可调用本脚本"
     echo "请选择操作："
 
     # 高亮菜单项
