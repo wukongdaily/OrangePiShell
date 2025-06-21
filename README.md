@@ -3,19 +3,19 @@
 ### Armbian/Ubuntu/Debian/Synology 7.2等基于Debian的Linux
 
 ```bash
-wget -qO pi.sh https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
+wget -qO pi.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/pi.sh && chmod +x pi.sh && ./pi.sh
 
 ```
 ### OpenWrt/iStoreOS 软路由系统
 ```bash
-wget -qO op.sh https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
+wget -qO op.sh https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/zero3/op.sh && chmod +x op.sh && ./op.sh
 
 ```
 ### 其它项目：[RunFilesBuilder——为iStoreOS/OpenWrt制作run文件](https://github.com/wukongdaily/RunFilesBuilder)
 ### 其它项目：[DockerTarBuilder 利用github action 轻松获得docker离线包](https://github.com/wukongdaily/DockerTarBuilder)
 ### 其它项目：[一键安装KVM虚拟机脚本:ARM机型也玩虚拟机](https://github.com/wukongdaily/OneKVM)
 ### 其它项目：[新项目armbian/openwrt安装器ISO 适合所有虚拟机和物理机](https://github.com/wukongdaily/armbian-installer)
-### [导航站](https://tvhelper.cpolar.top/) https://tvhelper.cpolar.top/
+### [导航站](https://tvhelper.cpolar.cn/) https://tvhelper.cpolar.cn/
 ### 通过ssh 连接到zero3,举例
 使用主机名连接ssh `ssh orangepi@orangepizero3.lan` <br>或使用ip地址连接ssh
 `ssh orangepi@192.168.66.106`
@@ -51,7 +51,7 @@ root@orangepizero3:~#
 
 ### QNAP 威联通docker-compose 搭建小雅全家桶
 ```bash
-bash -c "$(curl -fsSL https://cafe.cpolar.top/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
+bash -c "$(curl -fsSL https://cafe.cpolar.cn/wkdaily/zero3/raw/branch/main/xiaoya/xiaoya-all.sh)" 
 ```
 
 
@@ -85,9 +85,9 @@ https://github.com/wukongdaily/DockerTarBuilder
 
 [常见问题总结（持续更新中](https://github.com/wukongdaily/OrangePiShell/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
 
-[常见问题总结（持续更新中）](https://cafe.cpolar.top/wkdaily/zero3/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
+[常见问题总结（持续更新中）](https://cafe.cpolar.cn/wkdaily/zero3/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB)
 # 如何定时重启小雅？
-[使用1panel 添加定时任务即可](https://cafe.cpolar.top/wkdaily/zero3/wiki/%E5%A6%82%E4%BD%95%E5%AE%9A%E6%97%B6%E9%87%8D%E5%90%AF%E5%B0%8F%E9%9B%85)
+[使用1panel 添加定时任务即可](https://cafe.cpolar.cn/wkdaily/zero3/wiki/%E5%A6%82%E4%BD%95%E5%AE%9A%E6%97%B6%E9%87%8D%E5%90%AF%E5%B0%8F%E9%9B%85)
 
 # 小雅alsit 和 小雅tvbox 有啥区别吗？
 ```
@@ -140,4 +140,4 @@ https://github.com/SuperManito/LinuxMirrors <br>
 
 ## ❤️赞助作者 ⬇️⬇️
 
-[![点击这里赞助我](https://img.shields.io/badge/点击这里赞助我-支持作者的项目-orange?logo=github)](https://wkdaily.cpolar.top/01)
+[![点击这里赞助我](https://img.shields.io/badge/点击这里赞助我-支持作者的项目-orange?logo=github)](https://wkdaily.cpolar.cn/01)
