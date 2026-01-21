@@ -1,5 +1,8 @@
 <img alt="GitHub License" src="https://img.shields.io/github/license/wukongdaily/OrangePiShell?labelColor=%23FF4500&color=black">  <img src="https://badges.toozhao.com/badges/01JDKPTDXFQYYWHEPS32QSD4XT/orange.svg" /> [![Bilibili](https://img.shields.io/badge/Bilibili-123456?logo=bilibili&logoColor=fff&labelColor=fb7299)](https://www.bilibili.com/video/BV1ND421T7nB) [![YouTube](https://img.shields.io/badge/YouTube-123456?logo=youtube&labelColor=ff0000)](https://youtu.be/Ym4d7uCo9eg)
 
+# 通知 Zero3 可以刷飞牛啦
+https://github.com/ophub/fnnas/releases
+
 ### Armbian/Ubuntu/Debian/Synology 7.2等基于Debian的Linux
 
 ```bash
